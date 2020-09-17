@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+
+<loader type="sprite-loader">
+  <position x="0.f" y="100.2f"/>
+  <size width="32" height="32"/>
+  <img path="splash_screen_bg.png" name="splash_screen_bg"/>
+  
+  <animation>
+    <anim name="default" frame-width="50" frame-height="100" row="0" start-column="0" end-column="11" frame-delay="500"/>
+  </animation>
+</loader>
+
+
