@@ -1,2 +1,4 @@
-============ 09/07/2020
-Branch's for each language documentation.
+=========== 09/24/2020
+Animation:
+	draw:
+		Destination draw to use the frame's size, insted using object size.

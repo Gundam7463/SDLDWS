@@ -17,6 +17,7 @@ Animation::Animation(int frameWidth, int frameHeight, int row, int startColumn,
 	m_frameHeight(frameHeight), m_row(row), m_column(0), m_startColumn(startColumn),
 	m_endColumn(endColumn), m_frameDelay(frameDelay), m_frameDelayCount(0) {
 		
+	//fill our start frame
 	m_src.x = m_column * m_frameWidth;
 	m_src.y = m_row * m_frameHeight;
 	m_src.w = m_frameWidth;
@@ -30,7 +31,7 @@ void Animation::update(int elapsedTime) {
     if ((m_frameDelayCount += elapsedTime) > m_frameDelay)
     {
         m_frameDelayCount = 0;
-        
+		
         m_src.x = m_column * m_frameWidth;
         m_src.y = m_row * m_frameHeight;
         m_src.w = m_frameWidth;
@@ -46,8 +47,9 @@ void Animation::draw() {
 	if (m_pTarget)
 	{
 		const SDL_Rect dst = { int(m_pTarget->m_position.getX()), int(m_pTarget->m_position.getY()), 
-		m_pTarget->m_size.getX(), m_pTarget->m_size.getY() };
+		m_frameWidth, m_frameHeight };
 		
+		//Use the sprite texture and our data to draw the animation
 		Graphics::instance().drawTexture(m_pTarget->m_textureName, &m_src, &dst);	
 	}
 }
