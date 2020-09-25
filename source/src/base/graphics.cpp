@@ -123,7 +123,7 @@ void Graphics::drawTextSolid(const std::string& index, const char* text, SDL_Col
 }
 Graphics::Graphics() {
     
-    m_pWindow = SDL_CreateWindow("SDLDWS", 100, 100, 640, 512, SDL_WINDOW_SHOWN);
+    m_pWindow = SDL_CreateWindow("SDLDWS", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
     m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, SDL_RENDERER_SOFTWARE);
 
     if (!m_pWindow || !m_pRenderer)

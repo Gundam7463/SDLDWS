@@ -2,16 +2,22 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include "layer.h"
+#include "../base/tinyxml2.h"
 
 
-class Level : public Entity {
+class Level {
 public:
-    virtual bool load(const Loader* loader);
-    virtual void unload();
+    bool loadLevelFiles(const Loader* loader);
+    void unload();
 	
-    virtual void update(int elapsedTime);
-    virtual void draw();
+    void update(int elapsedTime);
+    void draw();
+	
 private:
 	std::vector<Layer*> m_layers;
+	
+	std::map<std::string, tinyxml2::XMLDocument*> m_levelFiles;
+	std::map<std::string, tinyxml2::XMLDocument*>::iterator m_levelFilesIt;
 };

@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<levels>
+	<level name="Tutorial" path="tutorial.tmx"/>
+</levels>

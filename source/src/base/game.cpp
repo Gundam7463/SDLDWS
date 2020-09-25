@@ -25,14 +25,16 @@ bool Game::initialize() {
     m_camera.init();
     InputManager::instance().createCursor("cursor.png", 0, 0);
 	
-	m_objectFactory.registerObject("Background", new BackgroundFactoryContainer());
+	
+	factoryRegister();
+	
 	
 	if (!m_screenManager.loadScreenFiles())
 	{
-		SDL_Log("Cannot read screens.xml file\n");
+		SDL_Log("Cannot read list-screens.xml file\n");
 		return false;
 	}
-	m_screenManager.setScreen("splashScreen");
+	m_screenManager.setScreen("PlayScreen");
 
     return true;
 }
@@ -81,4 +83,8 @@ void Game::draw() {
     m_timer.drawFpsCount(VectorInt2D(0, 0));
 	m_screenManager.draw();
     Graphics::instance().renderPresent();
+}
+
+void Game::factoryRegister() {
+	m_objectFactory.registerObject("Background", new BackgroundFactoryContainer());
 }

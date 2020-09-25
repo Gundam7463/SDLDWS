@@ -7,11 +7,13 @@
 
 class Screen {
 public:
-	void unload();
-	bool load(tinyxml2::XMLElement *element);
+	virtual ~Screen() { }
 
-	void update(int elapsedTime);
-	void draw();
+	virtual void unload();
+	virtual bool load(tinyxml2::XMLElement *element);
+
+	virtual void update(int elapsedTime);
+	virtual void draw();
 	
 private:
 	std::vector<Entity*> m_entities;

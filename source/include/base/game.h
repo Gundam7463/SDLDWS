@@ -27,6 +27,8 @@ private:
     void mainLoop();
     void update(int elapsedTime);
     void draw();
+	
+	void factoryRegister();
     
 private:
     bool m_bRunning;

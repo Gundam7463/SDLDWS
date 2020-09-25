@@ -1,5 +1,8 @@
 #include <SDL2/SDL.h>
 #include "../../include/screen/screen_manager.h"
+#include "../../include/screen/splash_screen.h"
+#include "../../include/screen/play_screen.h"
+#include "../../include/screen/main_menu_screen.h"
 
 extern std::string gRootDir;
 
@@ -28,7 +31,7 @@ void ScreenManager::unload() {
 bool ScreenManager::loadScreenFiles() {
 
 	std::string path = gRootDir;
-	path += "/screen/screens.xml";
+	path += "/screen/list-screens.xml";
 	
 	tinyxml2::XMLDocument doc;
 	doc.LoadFile(path.c_str());
@@ -68,7 +71,7 @@ void ScreenManager::setScreen(const std::string& name) {
 	
 	if (m_screensFilesIt == m_screensFiles.end())
 	{
-		SDL_Log("Error can't find screen: %s\n", name.c_str());
+		SDL_Log("Error can't find screen: %s, try rename it in the list-screens.xml to SplashScreen, MainMenuScreen, PlayScreen\n", name.c_str());
 	}
 	else {
 	
@@ -116,18 +119,48 @@ void ScreenManager::draw() {
 	}
 }
 
-bool ScreenManager::loadScreen(const std::string& name) {
+static Screen* getScreen(const std::string& name) {
+	Screen* screen = nullptr;
 	
-	m_screens[name] = new Screen();
-	tinyxml2::XMLElement *element = m_screensFiles[name]->FirstChildElement();
-	if (!(m_screens[name]->load(element)))
+	if (name == "SplashScreen")
 	{
-		SDL_Log("Cannot parser screen!\n");
-		return false;
+		screen = new SplashScreen();
+	}
+	else if (name == "MainMenuScreen")
+	{
+		screen = new MainMenuScreen();
+	}
+	else if (name == "PlayScreen")
+	{
+		screen = new PlayScreen();
+	}
+	else {
+		SDL_Log("Screen: screen name invalid, try rename it on your source code set screen to: SplashScreen, MainMenuScreen, PlayScreen");
 	}
 	
-	m_currentScreen = name;
+	return screen;
+}
+bool ScreenManager::loadScreen(const std::string& name) {
 	
-	m_empty = false;
-	return true;
+	Screen *screen = getScreen(name);
+	
+	if (screen)
+	{
+		m_screens[name] = screen;
+		
+		tinyxml2::XMLElement *element = m_screensFiles[name]->FirstChildElement();
+		if (!(m_screens[name]->load(element)))
+		{
+			SDL_Log("Cannot parser screen!\n");
+			return false;
+		}
+		
+		m_currentScreen = name;
+		
+		m_empty = false;
+		
+		return true;
+	}
+	
+	return false;
 }

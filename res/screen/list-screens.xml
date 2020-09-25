@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<screens>
+	<screen name="SplashScreen" path="splash.xml"/>
+	<screen name="MainMenuScreen" path="main-menu.xml"/>
+	<screen name="PlayScreen" path="play.xml"/>
+</screens>
