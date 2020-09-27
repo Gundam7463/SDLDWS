@@ -22,12 +22,14 @@
 	SOFTWARE.
 */
 
+#include <SDL2/SDL.h>
 #include "../../include/level/level.h"
+#include "../../include/level/sprite_layer.h"
 
 extern std::string gRootDir;
 
 
-bool Level::loadLevelFiles(const Loader* loader) {
+bool Level::loadLevelFiles() {
 	
 	std::string path = gRootDir;
 	path += "/level/list-levels.xml";
@@ -65,12 +67,13 @@ bool Level::loadLevelFiles(const Loader* loader) {
 	return true;
 }
 void Level::unload() {
-	for (unsigned int i = 0; i < m_layers.size(); i++)
+	for (m_layersIt = m_layers.begin(); m_layersIt != m_layers.end(); m_layersIt++)
 	{
-		m_layers[i]->unload();
-		delete m_layers[i];
+		m_layersIt->second->unload();
+		delete m_layersIt->second;
 	}
 	m_layers.clear();
+	
 	
 	for (m_levelFilesIt = m_levelFiles.begin(); m_levelFilesIt != m_levelFiles.end();
 	m_levelFilesIt++)
@@ -79,15 +82,31 @@ void Level::unload() {
 	}
 	m_levelFiles.clear();
 }
-void Level::update(int elapsedTime) {
-	for (unsigned int i = 0; i < m_layers.size(); i++)
+void Level::loadLevel(const std::string& levelName) {
+	
+	m_levelFilesIt = m_levelFiles.find(levelName);
+	if (m_levelFilesIt != m_levelFiles.end())
 	{
-		m_layers[i]->update(elapsedTime);
+		m_layers["SpriteLayer"] = new SpriteLayer();
+		
+		
+		SDL_Log("loadLevel: loading SpriteLayer...\n");
+		m_layers["SpriteLayer"]->load(m_levelFilesIt->second->FirstChildElement());
+		SDL_Log("loadLevel: SpriteLayer Loaded Successfully!\n");
+	}
+	else {
+		SDL_Log("Error on loading level: %s\n", levelName.c_str());
+	}
+}
+void Level::update(int elapsedTime) {
+	if (m_layers.size() > 0)
+	{
+		m_layers["SpriteLayer"]->update(elapsedTime);
 	}
 }
 void Level::draw() {
-	for (unsigned int i = 0; i < m_layers.size(); i++)
+	if (m_layers.size() > 0)
 	{
-		m_layers[i]->draw();
+		m_layers["SpriteLayer"]->draw();
 	}
 }

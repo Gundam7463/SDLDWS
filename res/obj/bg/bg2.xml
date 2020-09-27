@@ -3,7 +3,7 @@
 <loader type="sprite-loader">
   <position x="0.f" y="0.f"/>
   <size width="32" height="32"/>
-  <img path="play_screen_bg.png" name="play_screen_bg"/>
+  <img path="play-screen-bg.png" name="play-screen-bg"/>
   
   <animation>
     <anim name="default" frame-width="640" frame-height="480" row="0" start-column="0" end-column="1" frame-delay="500"/>

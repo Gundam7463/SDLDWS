@@ -27,20 +27,22 @@
 #include <string>
 #include <vector>
 #include "../entity/entity.h"
+#include "../base/tinyxml2.h"
 
 
 class Layer {
 public:
 	virtual ~Layer() { }
 
+	virtual void load(tinyxml2::XMLElement* root) = 0;
 	virtual void unload();
-	virtual void pushEntity(Entity *e);
 
 	virtual void update(int elapsedTime);
 	virtual void draw();
 
 	virtual const std::string getType() const { return "NONE"; }
-private:
+	
+protected:
 	Layer();
 
 	std::vector<Entity*> m_entities;

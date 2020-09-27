@@ -22,6 +22,15 @@
 	SOFTWARE.
 */
 
+/** The camera class.
+ * 
+ * IS: screen motion for our entire game.
+ * 
+ * WHERE: Container only on game class, but visible to objects.
+ * 
+ * HOW WORKS: simple draw a portion of the render to the screen.
+ */
+
 #pragma once 
 
 #include <SDL2/SDL_rect.h>
@@ -29,8 +38,13 @@
 
 class Camera {
 public:
+	//Basic setups.
     Camera();
     
+    /** void init ( )
+	 * 
+	 * @brief Set the viewport size.
+	 */
     void init();
     
 public:

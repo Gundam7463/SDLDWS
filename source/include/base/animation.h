@@ -29,7 +29,8 @@
  * 
  * WHERE: Contained on Sprite objects and Sprite Loader.
  * 
- * HOW: 1- An container filled by Sprite Loader. 
+ * HOW WORKS: 
+ * 		1- An container filled by Sprite Loader. 
  * 		2- Sprite loads an copy.
  */
 

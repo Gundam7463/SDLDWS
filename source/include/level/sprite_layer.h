@@ -24,27 +24,18 @@
 
 #pragma once 
 
-#include <string>
-#include <vector>
-#include <map>
+
 #include "layer.h"
-#include "../base/tinyxml2.h"
 
 
-class Level {
+class SpriteLayer : public Layer {
 public:
-    bool loadLevelFiles();
-    void unload();
-	
-	void loadLevel(const std::string& levelName);
-	
-    void update(int elapsedTime);
-    void draw();
-	
-private:
-	std::map<std::string, Layer*> m_layers;
-	std::map<std::string, Layer*>::iterator m_layersIt;
-	
-	std::map<std::string, tinyxml2::XMLDocument*> m_levelFiles;
-	std::map<std::string, tinyxml2::XMLDocument*>::iterator m_levelFilesIt;
+
+	virtual void load(tinyxml2::XMLElement* root);
+	virtual void unload();
+
+	virtual void update(int elapsedTime);
+	virtual void draw();
+
+	virtual const std::string getType() const { return "SpriteLayer"; }
 };

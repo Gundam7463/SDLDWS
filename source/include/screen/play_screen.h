@@ -26,7 +26,7 @@
 
 
 #include "screen.h"
-
+#include "../level/level.h"
 
 
 class PlayScreen : public Screen {
@@ -36,4 +36,7 @@ public:
 
 	virtual void update(int elapsedTime);
 	virtual void draw();
+	
+private:
+	Level m_level;
 };

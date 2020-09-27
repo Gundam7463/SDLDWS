@@ -22,29 +22,20 @@
 	SOFTWARE.
 */
 
-#pragma once 
-
-#include <string>
-#include <vector>
-#include <map>
-#include "layer.h"
-#include "../base/tinyxml2.h"
+#include "../../include/level/sprite_layer.h"
 
 
-class Level {
-public:
-    bool loadLevelFiles();
-    void unload();
+
+void SpriteLayer::load(tinyxml2::XMLElement* root) {
 	
-	void loadLevel(const std::string& levelName);
+}
+void SpriteLayer::unload() {
 	
-    void update(int elapsedTime);
-    void draw();
+}
+
+void SpriteLayer::update(int elapsedTime) {
 	
-private:
-	std::map<std::string, Layer*> m_layers;
-	std::map<std::string, Layer*>::iterator m_layersIt;
+}
+void SpriteLayer::draw() {
 	
-	std::map<std::string, tinyxml2::XMLDocument*> m_levelFiles;
-	std::map<std::string, tinyxml2::XMLDocument*>::iterator m_levelFilesIt;
-};
+}

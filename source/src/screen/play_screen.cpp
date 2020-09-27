@@ -25,15 +25,23 @@
 #include "../../include/screen/play_screen.h"
 
 void PlayScreen::unload() {
+	m_level.unload();
 	Screen::unload();
 }
 bool PlayScreen::load(tinyxml2::XMLElement *element) {
-	return Screen::load(element);
+	
+	bool success = m_level.loadLevelFiles();
+	success = Screen::load(element);
+	
+	m_level.loadLevel("Tutorial");
+	return success;
 }
 
 void PlayScreen::update(int elapsedTime) {
 	Screen::update(elapsedTime);
+	m_level.update(elapsedTime);
 }
 void PlayScreen::draw() {
+	m_level.draw();
 	Screen::draw();
 }

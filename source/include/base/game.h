@@ -41,6 +41,7 @@ public:
     void run();
     
 	ObjectFactory& getFactory() { return m_objectFactory; }
+	Camera& getCamera() { return m_camera; }
 	
 private:
     Game();

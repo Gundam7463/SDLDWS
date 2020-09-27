@@ -33,9 +33,6 @@ void Layer::unload() {
 	}
 	m_entities.clear();
 }
-void Layer::pushEntity(Entity *e) {
-	m_entities.push_back(e);
-}
 void Layer::update(int elapsedTime) {
 	for (unsigned int i = 0; i < m_entities.size(); i++)
 	{
