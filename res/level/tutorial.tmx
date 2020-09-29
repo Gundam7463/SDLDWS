@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="left-down" width="40" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="left-down" width="40" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="5">
  <layer id="1" name="Tile Layer 1" width="40" height="15">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -19,4 +19,16 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="2" name="Sprites">
+  <object id="1" name="Ispraiti 1" x="93.9394" y="60.6061" width="72.7273" height="87.8788">
+   <properties>
+    <property name="path" value="sample-sprite.xml"/>
+   </properties>
+  </object>
+  <object id="4" name="Sprite 2" x="357.576" y="148.485" width="72.7273" height="87.8788">
+   <properties>
+    <property name="path" value="sample-sprite.xml"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

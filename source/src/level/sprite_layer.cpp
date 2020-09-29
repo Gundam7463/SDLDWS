@@ -23,19 +23,56 @@
 */
 
 #include "../../include/level/sprite_layer.h"
+#include "../../include/entity/sprite.h"
+#include "../../include/loader/sprite_loader.h"
 
 
 
 void SpriteLayer::load(tinyxml2::XMLElement* root) {
-	
+	if (std::string(root->Value()) == "map")
+	{
+		for (tinyxml2::XMLElement* objectgroup = root->FirstChildElement(); objectgroup; 
+				objectgroup = objectgroup->NextSiblingElement())
+		{
+			if (std::string(objectgroup->Value()) == "objectgroup")
+			{
+				for (tinyxml2::XMLElement* object = objectgroup->FirstChildElement(); object;
+						object = object->NextSiblingElement())
+				{
+					if (std::string(object->Value()) == "object")
+					{
+						Entity* sprite = nullptr;
+						Loader* loader = nullptr;
+			
+						tinyxml2::XMLElement* property = object->FirstChildElement()->FirstChildElement();
+						
+						
+						if (std::string(property->Value()) == "property")
+						{
+							sprite = new Sprite();
+							loader = new SpriteLoader();
+							
+							loader->load(property->Attribute("value"));
+							
+							if (sprite->load(loader))
+							{
+								m_entities.push_back(sprite);	
+							}
+							delete loader;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 void SpriteLayer::unload() {
-	
+	Layer::unload();
 }
 
 void SpriteLayer::update(int elapsedTime) {
-	
+	Layer::update(elapsedTime);
 }
 void SpriteLayer::draw() {
-	
+	Layer::draw();
 }

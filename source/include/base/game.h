@@ -22,6 +22,16 @@
 	SOFTWARE.
 */
 
+/** The game class.
+ * 
+ * IS: the application main object, this object holds all information
+ * about screen's, camera. This is an singleton class.
+ * 
+ * WHERE: on the main.cpp file.
+ * 
+ * HOW WORKS: simple initialize an run the application.
+ */
+
 #pragma once 
 
 #include "camera.h"
@@ -32,34 +42,75 @@
 
 class Game {
 public:
+	//Nothing for now.
     ~Game();
+	
+	//Singleton get method.
     static Game& instance() {
         static Game game;
         return game;
     }
     
+    /** void run ( )
+	 * 
+	 * @brief set default values, do the game logic and finalize.
+	 * 
+	 */
     void run();
     
+	//Get the object factory reference
 	ObjectFactory& getFactory() { return m_objectFactory; }
+	//Get the camera with the viewport reference
 	Camera& getCamera() { return m_camera; }
 	
 private:
     Game();
     
+    /** bool initialize ( )
+	 * 
+	 * @brief initialize default values.
+	 * 
+	 * @return true on success or false on errors.
+	 */
     bool initialize();
+	
+    /** void finalize ( )
+	 * 
+	 * @brief unload everything.
+	 */
     void finalize();
     
+    /** void mainLoop ( )
+	 * 
+	 * @brief do the game logic and render.
+	 */
     void mainLoop();
+	
+    /** void update ( int elapsedTime )
+	 * 
+	 * @brief update the game logic.
+	 * 
+	 * @param elapsedTime the ms time delay in each iteration.
+	 */
     void update(int elapsedTime);
+	
+    /** void draw ( )
+	 * 
+	 * @brief render objects.
+	 */
     void draw();
 	
+	/** void factoryRegister ( )
+	 * 
+	 * @brief register all possible object to be used on screens.
+	 */
 	void factoryRegister();
     
 private:
-    bool m_bRunning;
+    bool m_bRunning;//true = the game is running, false = go to finalize the game.
     Camera m_camera;
-    Timer m_timer;
+    Timer m_timer;//our timer to do the Frame logic, such get the elapsed time and fix the FPS.
 	
-	ScreenManager m_screenManager;
-	ObjectFactory m_objectFactory;
+	ScreenManager m_screenManager;//Handle our screen's.
+	ObjectFactory m_objectFactory;//Holds object to be created.
 };

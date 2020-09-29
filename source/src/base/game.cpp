@@ -71,9 +71,9 @@ void Game::mainLoop() {
 		
     while(m_bRunning)
     {   
-        m_timer.updateFrames();
-        
-        InputManager::instance().clearFrame();
+        m_timer.updateFrames();//update frame on the main loop.
+        InputManager::instance().clearFrame();//clear all input frame, after and before.
+		
         while(SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT)
             {
@@ -91,6 +91,7 @@ void Game::mainLoop() {
 		
         update(m_timer.getElapsedTime());
         
+		//Draw only on an FPS fixed value's.
         if (m_timer.getTimeEvent())
         {
             m_timer.updateFramesCount();
@@ -99,13 +100,14 @@ void Game::mainLoop() {
     }
 }
 void Game::update(int elapsedTime) {
+	//Update the SDL viewport
     Graphics::instance().setViewport(&m_camera.m_viewport);
 	m_screenManager.update(elapsedTime);
 }
 void Game::draw() {
     Graphics::instance().clearColor();
-    m_timer.drawFpsCount(VectorInt2D(0, 0));
 	m_screenManager.draw();
+	m_timer.drawFpsCount(VectorInt2D(0, 0));
     Graphics::instance().renderPresent();
 }
 

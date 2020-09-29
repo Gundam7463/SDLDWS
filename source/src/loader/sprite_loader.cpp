@@ -71,7 +71,7 @@ bool SpriteLoader::load(const std::string& path) {
             if (std::string(element->Value()) == "img")
             {
                 m_imgPath = element->Attribute("path");
-                m_imgName = element->Attribute("name");
+                m_imgName = element->Attribute("nameID");
             }
             
             if (std::string(element->Value()) == "animation")

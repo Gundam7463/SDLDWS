@@ -30,8 +30,9 @@ void PlayScreen::unload() {
 }
 bool PlayScreen::load(tinyxml2::XMLElement *element) {
 	
-	bool success = m_level.loadLevelFiles();
-	success = Screen::load(element);
+	bool success = Screen::load(element);
+	success = m_level.loadLevelFiles();
+	
 	
 	m_level.loadLevel("Tutorial");
 	return success;
