@@ -29,7 +29,7 @@
 #include "../../include/base/graphics.h"
 
 
-extern std::string gRootDir;
+extern std::string gRootDir;//our default /res/ path
 
 
 void Graphics::unload() {
@@ -125,6 +125,11 @@ void Graphics::drawTexture(const std::string& index, const SDL_Rect* srcRect, co
         SDL_RenderCopyEx(m_pRenderer, m_textureList[index], srcRect, dstRect, angle, center, flip);
     }
 }
+void Graphics::drawTexture(SDL_Texture* texture, const SDL_Rect* srcRect, const SDL_Rect* dstRect, const double angle,
+    const SDL_Point* center, const SDL_RendererFlip flip) {
+    
+	SDL_RenderCopyEx(m_pRenderer, texture, srcRect, dstRect, angle, center, flip);
+}
 void Graphics::drawTextSolid(const std::string& index, const char* text, SDL_Color fg, const SDL_Rect* srcRect, 
         VectorInt2D position) {
     
@@ -135,15 +140,40 @@ void Graphics::drawTextSolid(const std::string& index, const char* text, SDL_Col
         SDL_Surface* surface = TTF_RenderUTF8_Solid(font, text, fg);
         
         SDL_Texture *texture = SDL_CreateTextureFromSurface(m_pRenderer, surface);
-        SDL_FreeSurface(surface);
-        
-        int tw, th;
-        SDL_QueryTexture(texture, 0, 0, &tw, &th);
-        const SDL_Rect dstRect = { position.getX(), position.getY(), tw, th };
+		
+		
+		const SDL_Rect dstRect = { position.getX(), position.getY(), surface->w, surface->h };
         
         SDL_RenderCopy(m_pRenderer, texture, srcRect, &dstRect);
         SDL_DestroyTexture(texture);
+		
+        SDL_FreeSurface(surface);
     }
+}
+SDL_Texture* Graphics::drawTextSolidToTexture(const std::string& index, SDL_Rect* textureRect, const char* text, 
+	SDL_Color fg) {
+		
+	SDL_Texture *texture = nullptr;
+			
+    m_fontListIt = m_fontList.find(index);
+    if (m_fontListIt != m_fontList.end())
+    {            
+        TTF_Font *font = m_fontList[index];
+        SDL_Surface* surface = TTF_RenderUTF8_Solid(font, text, fg);
+        
+        texture = SDL_CreateTextureFromSurface(m_pRenderer, surface);
+		
+		if (textureRect)
+		{
+			textureRect->x = textureRect->y = 0;
+			textureRect->w = surface->w;
+			textureRect->h = surface->h;
+		}
+		
+        SDL_FreeSurface(surface);
+    }
+	
+	return texture;
 }
 Graphics::Graphics() {
     

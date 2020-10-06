@@ -29,15 +29,15 @@
 extern std::string gRootDir;
 
 Mouse::Mouse() {
-	m_cursor = 0;
-    m_mouseSurface = 0;
+	m_cursor = nullptr;
+    m_mouseSurface = nullptr;
 }
 Mouse::~Mouse() {
 	if (m_cursor)
     {
 		SDL_FreeCursor(m_cursor);
     }
-    m_cursor = 0;
+    m_cursor = nullptr;
     if (m_mouseSurface)
     {
         SDL_FreeSurface(m_mouseSurface);

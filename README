@@ -3,3 +3,18 @@ Readme for SDLDWS Project
 LICENSE:
 
 files: tinyxml2.h and tinyxml2.cpp has your own licenses, please check.
+
+About the project:
+
+This projects is not ready, but this is the official repository that will be updated 
+frequently. Once this projects is ready it aims to developer and no-deleoper to create games
+for fun, for tests very fast. Only need to do is 'CTRL' + 'C' and 'CTRL' + 'V' and you will 
+get a entire game to edit what you want.
+
+About this repo:
+
+Here you will not find binary files like: dll's, .so or lib headers or make files. The source code 
+is very clean, what you need to compile is just choose you favorit IDE, copy the res and source 
+directory, set the env to compile SDL and compile. In the future when the first release version 
+was released i will put some pre-compile platforms links to download here.
+

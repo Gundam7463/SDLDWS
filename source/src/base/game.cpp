@@ -45,13 +45,12 @@ Game::Game() : m_bRunning(false) {
 }
 bool Game::initialize() {
     Graphics::instance().loadFont("Barlow-Light.ttf", "barlow16", 16);
+    Graphics::instance().loadFont("Barlow-Light.ttf", "barlow20", 20);
 	
     m_camera.init();
     InputManager::instance().createCursor("cursor.png", 0, 0);
 	
-	
 	factoryRegister();
-	
 	
 	if (!m_screenManager.loadScreenFiles())
 	{

@@ -41,11 +41,18 @@ Timer::Timer() {
     m_timeEvent = false;
     m_fps = 60.0;
     m_fpsCount = 0.0;
-    m_prevFpsCount = 0.0;
     
     m_fpsDelayToShow = 0;
+	m_fpsTexture = nullptr;
 }
 
+void Timer::finalize() {
+	if (m_fpsTexture)
+	{
+		SDL_DestroyTexture(m_fpsTexture);
+		m_fpsTexture = nullptr;
+	}
+}
 void Timer::updateFrames() {
     m_currentTime = SDL_GetTicks();
     m_elapsedTime = m_currentTime - m_prevTime;
@@ -87,14 +94,30 @@ bool Timer::getTimeEvent() {
 void Timer::drawFpsCount(VectorInt2D position) {
     if (m_fpsDelayToShow >= 2000)
     {
-        m_fpsDelayToShow = 0;
-        m_prevFpsCount = m_fpsCount;
+		m_fpsDelayToShow = 0;
+		
+		if (m_fpsTexture)
+		{
+			SDL_DestroyTexture(m_fpsTexture);
+			m_fpsTexture = nullptr;
+		}
+
+		
+		std::string str = "FPS:  ";
+		str += std::to_string(m_fpsCount);
+		str.resize(10);
+
+
+		SDL_Color color = { 216, 30, 120, 0xff };
+		m_fpsTexture = Graphics::instance().drawTextSolidToTexture("barlow16", &m_fpsTextureRect, 
+			str.c_str(), color, 0); 
     }
-    
-    std::string str = "FPS:  ";
-    str += std::to_string(m_prevFpsCount);
-    str.resize(10);
-    
-    SDL_Color color = { 216, 30, 120, 0xff };
-    Graphics::instance().drawTextSolid("barlow16", str.c_str(), color, 0, position);   
+
+	if (m_fpsTexture)
+	{
+		const SDL_Rect dstRect = { position.getX(), position.getY(), m_fpsTextureRect.w,
+			m_fpsTextureRect.h };
+		
+		Graphics::instance().drawTexture(m_fpsTexture, 0, &dstRect);
+	}
 }

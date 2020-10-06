@@ -27,7 +27,7 @@
 #include "../../include/entity/sprite.h"
 
 
-Animation::Animation() : m_pTarget(0), m_frameWidth(32), 
+Animation::Animation() : m_pTarget(nullptr), m_frameWidth(32), 
 	m_frameHeight(32), m_row(0), m_column(0), m_startColumn(0),
 	m_endColumn(3), m_frameDelay(200), m_frameDelayCount(0) {
 	
@@ -37,7 +37,7 @@ Animation::Animation() : m_pTarget(0), m_frameWidth(32),
 	m_src.h = m_frameHeight;
 }
 Animation::Animation(int frameWidth, int frameHeight, int row, int startColumn,
-	int endColumn, int frameDelay) : m_pTarget(0), m_frameWidth(frameWidth), 
+	int endColumn, int frameDelay) : m_pTarget(nullptr), m_frameWidth(frameWidth), 
 	m_frameHeight(frameHeight), m_row(row), m_column(0), m_startColumn(startColumn),
 	m_endColumn(endColumn), m_frameDelay(frameDelay), m_frameDelayCount(0) {
 		

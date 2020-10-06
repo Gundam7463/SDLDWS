@@ -31,6 +31,8 @@
 class Timer {
 public:
     Timer();
+	
+	void finalize();
     
     void updateFrames();
     
@@ -58,7 +60,9 @@ private:
     
     double m_fps;
     double m_fpsCount;
-    double m_prevFpsCount;
     int m_fpsDelayToShow;
     bool m_timeEvent;
+	
+	SDL_Texture* m_fpsTexture;
+	SDL_Rect m_fpsTextureRect;
 };
