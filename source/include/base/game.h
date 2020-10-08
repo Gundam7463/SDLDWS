@@ -86,13 +86,13 @@ private:
 	 */
     void mainLoop();
 	
-    /** void update ( int elapsedTime )
+    /** void update ( int32_t elapsedTime )
 	 * 
 	 * @brief update the game logic.
 	 * 
 	 * @param elapsedTime the ms time delay in each iteration.
 	 */
-    void update(int elapsedTime);
+    void update(int32_t elapsedTime);
 	
     /** void draw ( )
 	 * 

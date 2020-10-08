@@ -45,7 +45,7 @@ public:
 	
 	void popScreen(const std::string& name);
 	
-	void update(int elapsedTime);
+	void update(int32_t elapsedTime);
 	void draw();
 	
 private:

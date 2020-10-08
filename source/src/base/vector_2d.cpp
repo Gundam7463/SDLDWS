@@ -26,7 +26,7 @@
 
 
 VectorInt2D::VectorInt2D() : m_x(0), m_y(0) { }
-VectorInt2D::VectorInt2D(int x, int y) : m_x(x), m_y(y) { }
+VectorInt2D::VectorInt2D(int32_t x, int32_t y) : m_x(x), m_y(y) { }
 
 VectorInt2D VectorInt2D::operator+(const VectorInt2D &v) {
     m_x += v.m_x;
@@ -41,18 +41,18 @@ VectorInt2D& VectorInt2D::operator+=(const VectorInt2D& v) {
     return *this;
 }
 
-VectorInt2D& VectorInt2D::operator*(int scalar) {
+VectorInt2D& VectorInt2D::operator*(int32_t scalar) {
     m_x *= scalar;
     m_y *= scalar;
     
     return *this;
 }
 
-int VectorInt2D::getX() { return m_x; }
-int VectorInt2D::getY() { return m_y; }
+int32_t VectorInt2D::getX() { return m_x; }
+int32_t VectorInt2D::getY() { return m_y; }
 
-void VectorInt2D::setX(int x) { m_x = x; }
-void VectorInt2D::setY(int y) { m_y = y; }
+void VectorInt2D::setX(int32_t x) { m_x = x; }
+void VectorInt2D::setY(int32_t y) { m_y = y; }
 
 
 

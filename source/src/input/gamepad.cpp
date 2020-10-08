@@ -35,9 +35,9 @@ Gamepad::~Gamepad() {
 	this->finalizeJoys();
 }
 void Gamepad::clearFrame() {
-	for (int i = 0; i < SDL_NumJoysticks(); i++)
+	for (int32_t i = 0; i < SDL_NumJoysticks(); i++)
 	{
-		for (unsigned int j = 0; j < m_joyButtonsPressed[i].size(); j++)
+		for (uint32_t j = 0; j < m_joyButtonsPressed[i].size(); j++)
 		{
 			m_joyButtonsPressed[i][j] = false;
 			m_joyButtonsReleased[i][j] = false;
@@ -77,28 +77,28 @@ void Gamepad::updateInput(SDL_Event &ev) {
 		this->initializeJoys();
 	}
 }
-bool Gamepad::getJoyPressed(int joyID, Uint8 buttonID) {
+bool Gamepad::getJoyPressed(int joyID, uint8_t buttonID) {
 	if (joyID >= 0 && joyID < SDL_NumJoysticks())
 	{
 		return m_joyButtonsPressed[joyID][buttonID];
 	}
 	return false;
 }
-bool Gamepad::getJoyReleased(int joyID, Uint8 buttonID) {
+bool Gamepad::getJoyReleased(int joyID, uint8_t buttonID) {
 	if (joyID >= 0 && joyID < SDL_NumJoysticks())
 	{
 		return m_joyButtonsReleased[joyID][buttonID];
 	}
 	return false;
 }
-bool Gamepad::getJoyHold(int joyID, Uint8 buttonID) {
+bool Gamepad::getJoyHold(int joyID, uint8_t buttonID) {
 	if (joyID >= 0 && joyID < SDL_NumJoysticks())
 	{
 		return m_joyButtonsHold[joyID][buttonID];
 	}
 	return false;
 }
-Sint16 Gamepad::getAxisMove(int joyID, Uint8 axis) {
+int16_t Gamepad::getAxisMove(int joyID, uint8_t axis) {
     if (joyID >= 0 && joyID < SDL_NumJoysticks() &&
         axis >= 0)//não previne de por um valor axis muito mais alto.
     {
@@ -120,7 +120,7 @@ void Gamepad::initializeJoys() {
 		m_joyAxis.resize(numJoys);
 	}
 	
-	for (int i = 0; i < numJoys; i++)
+	for (uint8_t i = 0; i < numJoys; i++)
 	{
 		SDL_Joystick *joy = SDL_JoystickOpen(i);
 		
@@ -134,14 +134,14 @@ void Gamepad::initializeJoys() {
 		m_joyButtonsHold[i].resize(numButtons);
 		
 		m_joyAxis[i].resize(numAxes);
-		for (unsigned int j = 0; j < m_joyAxis[i].size(); j++)
+		for (uint8_t j = 0; j < m_joyAxis[i].size(); j++)
 		{
 			m_joyAxis[i][j] = 0;
 		}
 	}
 }
 void Gamepad::finalizeJoys() {
-	for (unsigned int i = 0; i < m_joysticks.size(); i++)
+	for (uint8_t i = 0; i < m_joysticks.size(); i++)
 	{
 		SDL_JoystickClose(m_joysticks[i]);
 	}

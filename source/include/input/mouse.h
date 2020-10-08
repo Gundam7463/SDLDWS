@@ -40,18 +40,18 @@ public:
     
 	void updateInput(SDL_Event &ev);
 	
-	bool getPressed(int key);
+	bool getPressed(uint8_t key);
 
-	bool getReleased(int key);
+	bool getReleased(uint8_t key);
     
-	bool getHolded(int key);
+	bool getHolded(uint8_t key);
 	
 	void getPosition(int *x, int *y);
 	
 private:
-	std::map<int, bool> m_pressed;
-	std::map<int, bool> m_released;
-	std::map<int, bool> m_holded;
+	std::map<uint8_t, bool> m_pressed;
+	std::map<uint8_t, bool> m_released;
+	std::map<uint8_t, bool> m_holded;
 	
 	SDL_Cursor *m_cursor;
     SDL_Surface *m_mouseSurface;

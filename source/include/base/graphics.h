@@ -65,7 +65,7 @@ public:
 	 */
     void loadTexture(const std::string& path, const std::string& index);
     
-    /** void loadFont ( const std::string& path, const std::string& index, int ptsize )
+    /** void loadFont ( const std::string& path, const std::string& index, uint8_t ptsize )
 	 * 
 	 * @brief Load font from directory /res/font/
 	 * 
@@ -73,7 +73,7 @@ public:
 	 * @param index The texture nameID.
 	 * @param ptsize The font size in pt.
 	 */
-    void loadFont(const std::string& path, const std::string& index, int ptsize);
+    void loadFont(const std::string& path, const std::string& index, uint8_t ptsize);
     
     /** void getWindowSize ( int* w, int* h )
 	 * 
@@ -84,7 +84,7 @@ public:
 	 */
     void getWindowSize(int* w, int* h);
     
-    /** void setRenderColor ( Uint8 r, Uint8 g, Uint8 b )
+    /** void setRenderColor ( uint8_t r, uint8_t g, uint8_t b )
 	 * 
 	 * @brief Set current clear color from the renderer.
 	 * 
@@ -92,7 +92,7 @@ public:
 	 * @param g Green value.
 	 * @param b Blue.
 	 */
-    void setRenderColor(Uint8 r, Uint8 g, Uint8 b);
+    void setRenderColor(uint8_t r, uint8_t g, uint8_t b);
     
     /** void setViewport ( const SDL_Rect* rect )
 	 * 

@@ -81,12 +81,12 @@ bool SpriteLoader::load(const std::string& path) {
                 {
 				
 					std::string name = anim->Attribute("name");
-					int frameWidth = anim->IntAttribute("frame-width");
-					int frameHeight = anim->IntAttribute("frame-height");
-					int row = anim->IntAttribute("row");
-					int startColumn = anim->IntAttribute("start-column");
-					int endColumn = anim->IntAttribute("end-column");
-					int frameDelay = anim->IntAttribute("frame-delay");
+					uint16_t frameWidth = anim->IntAttribute("frame-width");
+					uint16_t frameHeight = anim->IntAttribute("frame-height");
+					uint8_t row = anim->IntAttribute("row");
+					uint8_t startColumn = anim->IntAttribute("start-column");
+					uint8_t endColumn = anim->IntAttribute("end-column");
+					int32_t frameDelay = anim->IntAttribute("frame-delay");
 					
 					
 					Animation *newAnim = new Animation(frameWidth, frameHeight, row, startColumn,

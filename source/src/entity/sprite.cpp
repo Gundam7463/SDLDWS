@@ -67,7 +67,7 @@ void Sprite::unload() {
 	}
 	m_animations.clear();
 }
-void Sprite::update(int elapsedTime) {
+void Sprite::update(int32_t elapsedTime) {
     m_position += VectorFloat2D(0.f * elapsedTime, 0.f);
 	
 	if (m_currentAnimation != "__NONE")

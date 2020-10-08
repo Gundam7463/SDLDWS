@@ -37,6 +37,7 @@
 #pragma once 
 
 #include <SDL2/SDL_rect.h>
+#include <cstdint>
 
 
 class Sprite;
@@ -46,8 +47,8 @@ public:
 	//Alternative setup
 	Animation();
 	
-	/** Animation ( int frameWidth, int frameHeight, int row, int startColumn,
-	 * 				int endColumn, int frameDelay )
+	/** Animation ( uint16_t frameWidth, uint16_t frameHeight, uint8_t row, 
+	 * 			uint8_t startColumn, uint8_t endColumn, int32_t frameDelay )
 	 * 
 	 * @brief Constructor setup.
 	 * 
@@ -58,8 +59,8 @@ public:
 	 * @param endColumn the end square/frame.
 	 * @param frameDelay the ms(milliseconds) delay between each frame.
 	 */
-    Animation(int frameWidth, int frameHeight, int row, int startColumn,
-	int endColumn, int frameDelay);
+    Animation(uint16_t frameWidth, uint16_t frameHeight, uint8_t row, 
+	  			uint8_t startColumn, uint8_t endColumn, int32_t frameDelay);
 
 	/** void setTarget ( Sprite* sprite )
 	 * 
@@ -75,7 +76,7 @@ public:
 	 * 
 	 * @param elapsedTime the ms elapsed between each iteration of the game.
 	 */
-    void update(int elapsedTime);
+    void update(int32_t elapsedTime);
     
 	//render
     void draw();
@@ -83,16 +84,16 @@ private:
     
     Sprite* m_pTarget;//target pointer reference.
     
-    int m_frameWidth;
-    int m_frameHeight;
+    uint16_t m_frameWidth;
+    uint16_t m_frameHeight;
     
-    int m_row;
-    int m_column;
-    int m_startColumn;
-    int m_endColumn;
+    uint8_t m_row;
+    uint8_t m_column;
+    uint8_t m_startColumn;
+    uint8_t m_endColumn;
     
     SDL_Rect m_src;//Represents the frame on the sprite sheet texture.
     
-    int m_frameDelay;
-    int m_frameDelayCount;//the frameDelay counter.
+    int32_t m_frameDelay;
+    int32_t m_frameDelayCount;//the frameDelay counter.
 };

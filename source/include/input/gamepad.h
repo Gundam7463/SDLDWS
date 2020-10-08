@@ -27,6 +27,7 @@
 #include <vector>
 #include <map>
 #include <SDL2/SDL.h>
+#include <cstdint>
 
 
 
@@ -40,13 +41,13 @@ public:
     
 	void updateInput(SDL_Event &ev);
 	
-	bool getJoyPressed(int joyID, Uint8 buttonID);
+	bool getJoyPressed(int joyID, uint8_t buttonID);
     
-	bool getJoyReleased(int joyID, Uint8 buttonID);
+	bool getJoyReleased(int joyID, uint8_t buttonID);
     
-	bool getJoyHold(int joyID, Uint8 buttonID);
+	bool getJoyHold(int joyID, uint8_t buttonID);
 	
-	Sint16 getAxisMove(int joyID, Uint8 axis);
+	int16_t getAxisMove(int joyID, uint8_t axis);
 	
 private:
 
@@ -59,7 +60,7 @@ private:
 	std::vector<std::vector<bool>> m_joyButtonsReleased;
 	std::vector<std::vector<bool>> m_joyButtonsHold;
 	
-	std::vector<std::vector<Sint16>> m_joyAxis; 
+	std::vector<std::vector<int32_t>> m_joyAxis; 
 	
 	bool m_bOnce;
 };

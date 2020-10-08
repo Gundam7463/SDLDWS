@@ -42,20 +42,20 @@ public:
 	
 	void createCursor(const char *path, int hot_x, int hot_y);
 
-	bool getMousePressed(int key);
-	bool getMouseReleased(int key);
-	bool getMouseHold(int key);
+	bool getMousePressed(uint8_t key);
+	bool getMouseReleased(uint8_t key);
+	bool getMouseHold(uint8_t key);
 	void getMousePosition(int *x, int *y);
     
     bool getKeyPressed(SDL_Scancode key);
     bool getKeyReleased(SDL_Scancode key);
     bool getKeyHold(SDL_Scancode key);
 	
-	bool getJoyPressed(int joyID, Uint8 buttonID);
-	bool getJoyReleased(int joyID, Uint8 buttonID);
-	bool getJoyHold(int joyID, Uint8 buttonID);
+	bool getJoyPressed(int joyID, uint8_t buttonID);
+	bool getJoyReleased(int joyID, uint8_t buttonID);
+	bool getJoyHold(int joyID, uint8_t buttonID);
 	
-	Sint16 getJoyAxisMove(int joyID, Uint8 axis);
+	int16_t getJoyAxisMove(int joyID, uint8_t axis);
     
 private:
     InputManager() {}

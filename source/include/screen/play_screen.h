@@ -34,7 +34,7 @@ public:
 	virtual void unload();
 	virtual bool load(tinyxml2::XMLElement *element);
 
-	virtual void update(int elapsedTime);
+	virtual void update(int32_t elapsedTime);
 	virtual void draw();
 	
 private:

@@ -38,7 +38,7 @@ public:
 	
 	void loadLevel(const std::string& levelName);
 	
-    void update(int elapsedTime);
+    void update(int32_t elapsedTime);
     void draw();
 	
 private:

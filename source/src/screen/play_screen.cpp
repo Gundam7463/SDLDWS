@@ -38,7 +38,7 @@ bool PlayScreen::load(tinyxml2::XMLElement *element) {
 	return success;
 }
 
-void PlayScreen::update(int elapsedTime) {
+void PlayScreen::update(int32_t elapsedTime) {
 	Screen::update(elapsedTime);
 	m_level.update(elapsedTime);
 }

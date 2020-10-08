@@ -48,27 +48,27 @@ bool InputManager::getKeyReleased(SDL_Scancode key) {
 bool InputManager::getKeyHold(SDL_Scancode key) {
     return m_keyboard.getHold(key);
 }
-bool InputManager::getMousePressed(int key) {
+bool InputManager::getMousePressed(uint8_t key) {
 	return m_mouse.getPressed(key);
 }
-bool InputManager::getMouseReleased(int key) {
+bool InputManager::getMouseReleased(uint8_t key) {
 	return m_mouse.getReleased(key);
 }
-bool InputManager::getMouseHold(int key) {
+bool InputManager::getMouseHold(uint8_t key) {
 	return m_mouse.getHolded(key);
 }
 void InputManager::getMousePosition(int *x, int *y) {
 	m_mouse.getPosition(x, y);
 }
-bool InputManager::getJoyPressed(int joyID, Uint8 buttonID) {
+bool InputManager::getJoyPressed(int joyID, uint8_t buttonID) {
 	return m_gamepad.getJoyPressed(joyID, buttonID);
 }
-bool InputManager::getJoyReleased(int joyID, Uint8 buttonID) {
+bool InputManager::getJoyReleased(int joyID, uint8_t buttonID) {
 	return m_gamepad.getJoyReleased(joyID, buttonID);
 }
-bool InputManager::getJoyHold(int joyID, Uint8 buttonID) {
+bool InputManager::getJoyHold(int joyID, uint8_t buttonID) {
 	return m_gamepad.getJoyHold(joyID, buttonID);
 }
-Sint16 InputManager::getJoyAxisMove(int joyID, Uint8 axis) {
+int16_t InputManager::getJoyAxisMove(int joyID, uint8_t axis) {
 	return m_gamepad.getAxisMove(joyID, axis);
 }

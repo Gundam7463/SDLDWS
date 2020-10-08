@@ -29,7 +29,7 @@
  
 
 void Screen::unload() {
-	for (unsigned int i = 0; i < m_entities.size(); i++)
+	for (uint32_t i = 0; i < m_entities.size(); i++)
 	{
 		m_entities[i]->unload();
 		delete m_entities[i];
@@ -73,14 +73,14 @@ bool Screen::load(tinyxml2::XMLElement *element) {
 	
 	return true;
 }
-void Screen::update(int elapsedTime) {
-	for (unsigned int i = 0; i < m_entities.size(); i++)
+void Screen::update(int32_t elapsedTime) {
+	for (uint32_t i = 0; i < m_entities.size(); i++)
 	{
 		m_entities[i]->update(elapsedTime);
 	}
 }
 void Screen::draw() {
-	for (unsigned int i = 0; i < m_entities.size(); i++)
+	for (uint32_t i = 0; i < m_entities.size(); i++)
 	{
 		m_entities[i]->draw();
 	}

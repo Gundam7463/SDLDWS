@@ -82,7 +82,7 @@ void Graphics::loadTexture(const std::string& path, const std::string& index) {
         }
     }
 }
-void Graphics::loadFont(const std::string& path, const std::string& index, int ptsize) {
+void Graphics::loadFont(const std::string& path, const std::string& index, uint8_t ptsize) {
     
     m_fontListIt = m_fontList.find(index);
     

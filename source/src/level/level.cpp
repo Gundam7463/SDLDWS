@@ -98,7 +98,7 @@ void Level::loadLevel(const std::string& levelName) {
 		SDL_Log("Error on loading level: %s\n", levelName.c_str());
 	}
 }
-void Level::update(int elapsedTime) {
+void Level::update(int32_t elapsedTime) {
 	if (m_layers.size() > 0)
 	{
 		m_layers["SpriteLayer"]->update(elapsedTime);

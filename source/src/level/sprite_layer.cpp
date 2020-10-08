@@ -70,7 +70,7 @@ void SpriteLayer::unload() {
 	Layer::unload();
 }
 
-void SpriteLayer::update(int elapsedTime) {
+void SpriteLayer::update(int32_t elapsedTime) {
 	Layer::update(elapsedTime);
 }
 void SpriteLayer::draw() {

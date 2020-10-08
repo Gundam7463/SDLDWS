@@ -31,8 +31,8 @@
 
 
 Timer::Timer() {
-    m_startTime = 0;
-    m_frameTime = 0;
+    m_fpsCountPrevTime = 0;
+    m_fpsCountFrameTime = 0;
     
     m_currentTime = 0;
     m_prevTime = 0;
@@ -71,10 +71,10 @@ void Timer::updateFrames() {
     }
 }
 void Timer::updateFramesCount() {
-    m_frameTime = SDL_GetTicks() - m_startTime;
-    m_startTime = SDL_GetTicks();
+    m_fpsCountFrameTime = SDL_GetTicks() - m_fpsCountPrevTime;
+    m_fpsCountPrevTime = SDL_GetTicks();
     
-    m_fpsCount = (m_frameTime > 0) ? 1000.f / m_frameTime : 0.f;
+    m_fpsCount = (m_fpsCountFrameTime > 0) ? 1000.f / m_fpsCountFrameTime : 0.f;
 }
 
 void Timer::setFps(double fps) {
@@ -83,7 +83,7 @@ void Timer::setFps(double fps) {
 double Timer::getFpsCount() {
     return m_fpsCount;
 }
-int Timer::getElapsedTime() {
+int32_t Timer::getElapsedTime() {
     return m_elapsedTime;
 }
 
@@ -110,7 +110,7 @@ void Timer::drawFpsCount(VectorInt2D position) {
 
 		SDL_Color color = { 216, 30, 120, 0xff };
 		m_fpsTexture = Graphics::instance().drawTextSolidToTexture("barlow16", &m_fpsTextureRect, 
-			str.c_str(), color, 0); 
+			str.c_str(), color); 
     }
 
 	if (m_fpsTexture)

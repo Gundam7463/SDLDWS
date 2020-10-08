@@ -33,7 +33,7 @@ void Background::unload() {
 	Sprite::unload();
 }
 
-void Background::update(int elapsedTime) {
+void Background::update(int32_t elapsedTime) {
 	Sprite::update(elapsedTime);
 }
 void Background::draw() {

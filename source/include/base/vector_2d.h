@@ -24,26 +24,28 @@
 
 #pragma once 
 
+#include <cstdint>
+
 
 class VectorInt2D {
 public:
     VectorInt2D();
-    VectorInt2D(int x, int y);
+    VectorInt2D(int32_t x, int32_t y);
     
     
     VectorInt2D operator+(const VectorInt2D &v);
     VectorInt2D& operator+=(const VectorInt2D& v);
     
-    VectorInt2D& operator*(int scalar);
+    VectorInt2D& operator*(int32_t scalar);
     
-    int getX();
-    int getY();
+    int32_t getX();
+    int32_t getY();
     
-    void setX(int x);
-    void setY(int y);
+    void setX(int32_t x);
+    void setY(int32_t y);
     
 private:
-    int m_x, m_y;
+    int32_t m_x, m_y;
 };
 
 class VectorFloat2D {

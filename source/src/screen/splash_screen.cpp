@@ -31,7 +31,7 @@ bool SplashScreen::load(tinyxml2::XMLElement *element) {
 	return Screen::load(element);
 }
 
-void SplashScreen::update(int elapsedTime) {
+void SplashScreen::update(int32_t elapsedTime) {
 	Screen::update(elapsedTime);
 }
 void SplashScreen::draw() {

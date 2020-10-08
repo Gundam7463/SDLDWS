@@ -130,7 +130,7 @@ void ScreenManager::popScreen(const std::string& name) {
 	}
 }
 
-void ScreenManager::update(int elapsedTime) {
+void ScreenManager::update(int32_t elapsedTime) {
 	if (!m_empty)
 	{
 		m_screens[m_currentScreen]->update(elapsedTime);

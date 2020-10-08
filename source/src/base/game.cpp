@@ -98,7 +98,7 @@ void Game::mainLoop() {
         }
     }
 }
-void Game::update(int elapsedTime) {
+void Game::update(int32_t elapsedTime) {
 	//Update the SDL viewport
     Graphics::instance().setViewport(&m_camera.m_viewport);
 	m_screenManager.update(elapsedTime);

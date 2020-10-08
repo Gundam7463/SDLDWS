@@ -37,7 +37,7 @@ public:
 	virtual void load(tinyxml2::XMLElement* root) = 0;
 	virtual void unload();
 
-	virtual void update(int elapsedTime);
+	virtual void update(int32_t elapsedTime);
 	virtual void draw();
 
 	virtual const std::string getType() const { return "NONE"; }

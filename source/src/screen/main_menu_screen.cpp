@@ -32,7 +32,7 @@ bool MainMenuScreen::load(tinyxml2::XMLElement *element) {
 	return Screen::load(element);
 }
 
-void MainMenuScreen::update(int elapsedTime) {
+void MainMenuScreen::update(int32_t elapsedTime) {
 	Screen::update(elapsedTime);
 }
 void MainMenuScreen::draw() {

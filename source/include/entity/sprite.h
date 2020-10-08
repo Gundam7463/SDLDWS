@@ -39,7 +39,7 @@ public:
     virtual bool load(const Loader* loader);
     virtual void unload();
     
-    virtual void update(int elapsedTime);
+    virtual void update(int32_t elapsedTime);
     virtual void draw();
     
 protected:

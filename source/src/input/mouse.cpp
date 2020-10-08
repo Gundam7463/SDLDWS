@@ -83,13 +83,13 @@ void Mouse::updateInput(SDL_Event &ev) {
 		m_holded[ev.button.button] = false;		
 	}
 }
-bool Mouse::getPressed(int key) {
+bool Mouse::getPressed(uint8_t key) {
 	return m_pressed[key];
 }
-bool Mouse::getReleased(int key) {
+bool Mouse::getReleased(uint8_t key) {
 	return m_released[key];
 }
-bool Mouse::getHolded(int key) {
+bool Mouse::getHolded(uint8_t key) {
 	return m_holded[key];
 }
 void Mouse::getPosition(int *x, int *y) {
