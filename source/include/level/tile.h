@@ -24,12 +24,19 @@
 
 #pragma once 
 
-#include <string>
+#include <SDL2/SDL.h>
+#include "../base/vector_2d.h"
 
 
-class Loader {
+class Tile {
 public:
-    virtual ~Loader() { }
-    
-    virtual bool load(const std::string& path) = 0;
+	void setup(VectorFloat2D position, SDL_Rect srcRect, SDL_Texture* tilesheet, bool invisible);
+	
+	void draw();
+private:
+	VectorFloat2D m_position;
+	SDL_Rect m_srcRect;
+	
+	SDL_Texture* m_tilesheet;
+	bool m_invisible;
 };

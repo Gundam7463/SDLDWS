@@ -22,28 +22,23 @@
 	SOFTWARE.
 */
 
-#include "../../include/level/layer.h"
+#include "../../include/level/tile.h"
+#include "../../include/base/graphics.h"
 
 
-void Layer::unload() {
-	for (uint32_t i = 0; i < m_entities.size(); i++)
-	{
-		m_entities[i]->unload();
-		delete m_entities[i];
-	}
-	m_entities.clear();
+void Tile::setup(VectorFloat2D position, SDL_Rect srcRect, SDL_Texture* tilesheet, bool invisible) {
+	m_position = position;
+	m_srcRect = srcRect;
+	m_tilesheet = tilesheet;
+	m_invisible = invisible;
 }
-void Layer::update(int32_t elapsedTime) {
-	for (uint32_t i = 0; i < m_entities.size(); i++)
+
+void Tile::draw() {
+	if (!m_invisible)
 	{
-		m_entities[i]->update(elapsedTime);
+		const SDL_Rect dstRect = { int(m_position.getX()), int(m_position.getY()),
+		m_srcRect.w, m_srcRect.h };
+		
+		Graphics::instance().drawTexture(m_tilesheet, &m_srcRect, &dstRect);		
 	}
-}
-void Layer::draw() {
-	for (uint32_t i = 0; i < m_entities.size(); i++)
-	{
-		m_entities[i]->draw();
-	}
-}
-Layer::Layer() {
 }

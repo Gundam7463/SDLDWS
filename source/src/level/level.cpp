@@ -67,12 +67,25 @@ bool Level::loadLevelFiles() {
 	return true;
 }
 void Level::unload() {
-	for (m_layersIt = m_layers.begin(); m_layersIt != m_layers.end(); m_layersIt++)
+	for (uint32_t i = 0; i < m_tileLayers.size(); i++)
 	{
-		m_layersIt->second->unload();
-		delete m_layersIt->second;
+		m_tileLayers[i]->unload();
+		delete m_tileLayers[i];
 	}
-	m_layers.clear();
+	m_tileLayers.clear();
+	
+	for (uint32_t i = 0; i < m_spriteLayers.size(); i++)
+	{
+		m_spriteLayers[i]->unload();
+		delete m_spriteLayers[i];
+	}
+	m_spriteLayers.clear();
+	
+	for (uint32_t i = 0; i < m_levelInfo.m_tilesets.size(); i++)
+	{
+		delete m_levelInfo.m_tilesets[i];
+	}
+	m_levelInfo.m_tilesets.clear();
 	
 	
 	for (m_levelFilesIt = m_levelFiles.begin(); m_levelFilesIt != m_levelFiles.end();
@@ -82,31 +95,104 @@ void Level::unload() {
 	}
 	m_levelFiles.clear();
 }
-void Level::loadLevel(const std::string& levelName) {
+bool Level::loadLevel(const std::string& levelName) {
 	
 	m_levelFilesIt = m_levelFiles.find(levelName);
 	if (m_levelFilesIt != m_levelFiles.end())
 	{
-		m_layers["SpriteLayer"] = new SpriteLayer();
+		tinyxml2::XMLElement* root = m_levelFilesIt->second->FirstChildElement();
+		SDL_Log("\nLoading Level Info...\n");
 		
-		
-		SDL_Log("loadLevel: loading SpriteLayer...\n");
-		m_layers["SpriteLayer"]->load(m_levelFilesIt->second->FirstChildElement());
-		SDL_Log("loadLevel: SpriteLayer Loaded Successfully!\n");
+		if (std::string(root->Value()) == "map")
+		{
+			m_levelInfo.m_level_name = levelName;
+			
+			m_levelInfo.m_level_width_in_tile = root->IntAttribute("width");
+			m_levelInfo.m_level_height_in_tile = root->IntAttribute("height");
+			m_levelInfo.m_level_tile_width_px = root->IntAttribute("tilewidth");
+			m_levelInfo.m_level_tile_height_px = root->IntAttribute("tileheight");
+			
+			SDL_Log("Level Info successfull loaded.\n");
+			SDL_Log("\nLoading Level sprite's layer's...\n");
+			
+			for (tinyxml2::XMLElement* objectgroup = root->FirstChildElement(); objectgroup; 
+					objectgroup = objectgroup->NextSiblingElement())
+			{
+				if (std::string(objectgroup->Value()) == "objectgroup")
+				{
+					SpriteLayer *newSpriteLayer = new SpriteLayer();
+					if (!newSpriteLayer->load(objectgroup))
+					{
+						delete newSpriteLayer;
+						unload();
+						return false;
+					}
+					
+					m_spriteLayers.push_back(newSpriteLayer);
+				}
+			}
+			
+			SDL_Log("Level sprite's layer's successfull loaded.\n");
+			SDL_Log("\nLoading Level tile's layer's...\n");
+			
+			for (tinyxml2::XMLElement* map = root->FirstChildElement(); map;
+				map = map->NextSiblingElement())
+			{
+				if (std::string(map->Value()) == "tileset")
+				{
+					Tileset* newTileset = new Tileset(
+						map->IntAttribute("firstgid"),
+						map->Attribute("name"),
+						map->IntAttribute("tilewidth"),
+						map->IntAttribute("tileheight"),
+						map->IntAttribute("tilecount"),
+						std::string(map->FirstChildElement()->Attribute("source")).erase(0, 7)
+					);
+					
+					m_levelInfo.m_tilesets.push_back(newTileset);
+				}
+				else if (std::string(map->Value()) == "layer")
+				{
+					TileLayer* newTileLayer = new TileLayer();
+					if (!newTileLayer->load(map, m_levelInfo))
+					{
+						unload();
+						return false;
+					}
+					m_tileLayers.push_back(newTileLayer);
+				}
+			}
+			
+			SDL_Log("Level tile's layer's successfull loaded.\n");
+		}
 	}
 	else {
 		SDL_Log("Error on loading level: %s\n", levelName.c_str());
+		unload();
+		return false;
 	}
+	
+	return true;
 }
 void Level::update(int32_t elapsedTime) {
-	if (m_layers.size() > 0)
+	for (uint32_t i = 0; i < m_tileLayers.size(); i++)
 	{
-		m_layers["SpriteLayer"]->update(elapsedTime);
+		m_tileLayers[i]->update(elapsedTime);
+	}
+	
+	for (uint32_t i = 0; i < m_spriteLayers.size(); i++)
+	{
+		m_spriteLayers[i]->update(elapsedTime);
 	}
 }
 void Level::draw() {
-	if (m_layers.size() > 0)
+	for (uint32_t i = 0; i < m_tileLayers.size(); i++)
 	{
-		m_layers["SpriteLayer"]->draw();
+		m_tileLayers[i]->draw();
+	}
+	
+	for (uint32_t i = 0; i < m_spriteLayers.size(); i++)
+	{
+		m_spriteLayers[i]->draw();
 	}
 }

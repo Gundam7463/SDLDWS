@@ -29,8 +29,8 @@
 
 
 
-bool Sprite::load(const Loader* loader) {
-    const SpriteLoader* spriteLoader = dynamic_cast<const SpriteLoader*> (loader);
+bool Sprite::load(const void* loaderPtr) {
+    const SpriteLoader* spriteLoader = (SpriteLoader*)loaderPtr;
     m_currentAnimation = "___NONE";
 	
     if (spriteLoader != nullptr)

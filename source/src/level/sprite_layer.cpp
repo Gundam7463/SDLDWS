@@ -28,51 +28,67 @@
 
 
 
-void SpriteLayer::load(tinyxml2::XMLElement* root) {
-	if (std::string(root->Value()) == "map")
+bool SpriteLayer::load(tinyxml2::XMLElement* objectgroup) {
+
+	for (tinyxml2::XMLElement* object = objectgroup->FirstChildElement(); object;
+			object = object->NextSiblingElement())
 	{
-		for (tinyxml2::XMLElement* objectgroup = root->FirstChildElement(); objectgroup; 
-				objectgroup = objectgroup->NextSiblingElement())
+		if (std::string(object->Value()) == "object")
 		{
-			if (std::string(objectgroup->Value()) == "objectgroup")
-			{
-				for (tinyxml2::XMLElement* object = objectgroup->FirstChildElement(); object;
-						object = object->NextSiblingElement())
-				{
-					if (std::string(object->Value()) == "object")
-					{
-						Entity* sprite = nullptr;
-						Loader* loader = nullptr;
+			Entity* sprite = nullptr;
+			SpriteLoader* loader = nullptr;
+
+			tinyxml2::XMLElement* property = object->FirstChildElement()->FirstChildElement();
 			
-						tinyxml2::XMLElement* property = object->FirstChildElement()->FirstChildElement();
-						
-						
-						if (std::string(property->Value()) == "property")
-						{
-							sprite = new Sprite();
-							loader = new SpriteLoader();
-							
-							loader->load(property->Attribute("value"));
-							
-							if (sprite->load(loader))
-							{
-								m_entities.push_back(sprite);	
-							}
-							delete loader;
-						}
-					}
+			
+			if (std::string(property->Value()) == "property")
+			{
+				sprite = new Sprite();
+				loader = new SpriteLoader();
+				
+				loader->load(property->Attribute("value"));
+				/** If sprite is on tiled editor positive for axis x and y, accept the tiled editor
+				 * x,y coordinate values
+				 */
+				if (object->FloatAttribute("x") >= 0.f && object->FloatAttribute("y") >= 0.f)
+				{
+					VectorFloat2D newPosition(object->FloatAttribute("x"), object->FloatAttribute("y"));
+					loader->setPosition(newPosition);
+				}
+				
+				if (sprite->load(loader))
+				{
+					m_entities.push_back(sprite);	
+					delete loader;
+				}
+				else {
+					delete loader;
+					return false;
 				}
 			}
 		}
 	}
+	
+	return true;
 }
 void SpriteLayer::unload() {
-	Layer::unload();
+	for (uint32_t i = 0; i < m_entities.size(); i++)
+	{
+		m_entities[i]->unload();
+		delete m_entities[i];
+	}
+	m_entities.clear();
 }
 
 void SpriteLayer::update(int32_t elapsedTime) {
-	Layer::update(elapsedTime);
+	for (uint32_t i = 0; i < m_entities.size(); i++)
+	{
+		m_entities[i]->update(elapsedTime);
+	}
 }
 void SpriteLayer::draw() {
-	Layer::draw();
+	for (uint32_t i = 0; i < m_entities.size(); i++)
+	{
+		m_entities[i]->draw();
+	}
 }

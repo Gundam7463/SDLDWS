@@ -43,17 +43,18 @@ bool Screen::load(tinyxml2::XMLElement *element) {
 	}
 	for (tinyxml2::XMLElement *e = element->FirstChildElement(); e; e = e->NextSiblingElement())
 	{
-		Loader *loader = nullptr;
+		void* loader = nullptr;
 		
 		if (std::string(e->Value()) == "loader")
 		{
 			if (std::string(e->Attribute("type")) == "SpriteLoader")
 			{
 				loader = new SpriteLoader();
+				SpriteLoader* spriteLoader = (SpriteLoader*)loader;
 				
-				if (!loader->load(e->Attribute("path")))
+				if (!spriteLoader->load(e->Attribute("path")))
 				{
-					delete loader;
+					delete spriteLoader;
 					return false;
 				}
 			}
@@ -65,7 +66,7 @@ bool Screen::load(tinyxml2::XMLElement *element) {
 				m_entities.push_back(entity);
 			}
 			else {
-				delete loader;
+				loader = 0;
 				return false;
 			}
 		}

@@ -27,8 +27,32 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "layer.h"
 #include "../base/tinyxml2.h"
+#include "tile_layer.h"
+#include "sprite_layer.h"
+#include "tileset.h"
+
+
+struct LevelInfo {
+	std::string m_level_name;
+	
+	uint32_t m_level_width_in_tile;
+	uint32_t m_level_height_in_tile;
+	uint8_t m_level_tile_width_px;
+	uint8_t m_level_tile_height_px;
+	std::vector<Tileset*> m_tilesets;
+	
+	void print() {
+		SDL_Log("\n\nLevelInfo: \n");
+		SDL_Log("level-name: %s\n", m_level_name.c_str());
+		SDL_Log("level-width-in-tile: %d\n", m_level_width_in_tile);
+		SDL_Log("level-height-in-tile: %d\n", m_level_height_in_tile);
+		SDL_Log("level-tile-width-px: %d\n", m_level_tile_width_px);
+		SDL_Log("level-tile-height-px: %d\n", m_level_tile_height_px);
+		SDL_Log("level-num-tilesets: %ld\n", m_tilesets.size());
+	}
+};
+
 
 
 class Level {
@@ -36,15 +60,17 @@ public:
     bool loadLevelFiles();
     void unload();
 	
-	void loadLevel(const std::string& levelName);
+	bool loadLevel(const std::string& levelName);
 	
     void update(int32_t elapsedTime);
     void draw();
 	
 private:
-	std::map<std::string, Layer*> m_layers;
-	std::map<std::string, Layer*>::iterator m_layersIt;
+	std::vector<TileLayer*> m_tileLayers;
+	std::vector<SpriteLayer*> m_spriteLayers;
 	
 	std::map<std::string, tinyxml2::XMLDocument*> m_levelFiles;
 	std::map<std::string, tinyxml2::XMLDocument*>::iterator m_levelFilesIt;
+	
+	LevelInfo m_levelInfo;
 };

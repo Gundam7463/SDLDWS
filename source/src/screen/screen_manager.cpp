@@ -38,6 +38,7 @@ ScreenManager::ScreenManager() {
 void ScreenManager::unload() {
 	for (m_screensIt = m_screens.begin(); m_screensIt != m_screens.end(); m_screensIt++)
 	{
+		m_screensIt->second->unload();
 		delete m_screensIt->second;
 	}
 	m_screens.clear();

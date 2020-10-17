@@ -26,19 +26,22 @@
 
 #include <map>
 #include <SDL2/SDL_rect.h>
-#include "loader.h"
 #include "../base/vector_2d.h"
 
 
 class Animation;
 
-class SpriteLoader : public Loader {
+class SpriteLoader {
 public:
 
 	~SpriteLoader();
 	
-    virtual bool load(const std::string& path);
+    bool load(const std::string& path);
     
+	void setPosition(VectorFloat2D position) {
+		m_position = position;
+	}
+	
     const VectorFloat2D& getPosition() const { return m_position; }
     const VectorInt2D& getSize() const { return m_size; }
     const std::string& getImgPath() const { return m_imgPath; }

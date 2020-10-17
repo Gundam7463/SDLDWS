@@ -25,13 +25,12 @@
 #pragma once 
 
 #include "../entity/sprite.h"
-#include "../loader/loader.h"
 #include "object_factory.h"
 
 
 class Background : public Sprite {
 public:
-    virtual bool load(const Loader* loader);
+    virtual bool load(const void* loaderPtr);
     virtual void unload();
     
     virtual void update(int32_t elapsedTime);
@@ -41,10 +40,10 @@ public:
 
 class BackgroundFactoryContainer : public FactoryContainer {
 public:
-	virtual Entity* create(const Loader *loader) {
+	virtual Entity* create(const void* loaderPtr) {
 		
 		Background *_instance = new Background();
-		_instance->load(loader);
+		_instance->load(loaderPtr);
 		
 		return _instance;
 	}

@@ -60,27 +60,33 @@ void Graphics::loadTexture(const std::string& path, const std::string& index) {
     
     if (m_textureListIt == m_textureList.end())
     {
-        std::string finalPath;
-        finalPath = gRootDir;
-        finalPath += "/img/";
-        finalPath += path;
-        
-        
-        SDL_Surface *surfaceLoaded = IMG_Load(finalPath.c_str());
+		SDL_Texture* texture = this->loadTexture(path);
 
-        if (surfaceLoaded)
+        if (texture)
         {
-            SDL_SetColorKey(surfaceLoaded, SDL_TRUE, SDL_MapRGB(surfaceLoaded->format, 255, 0, 255));
-            SDL_Texture *texture = SDL_CreateTextureFromSurface(m_pRenderer, surfaceLoaded);
-            
-            if (texture)
-            {
-                m_textureList[index] = texture;   
-            }   
-            
-            SDL_FreeSurface(surfaceLoaded);
+			m_textureList[index] = texture;   
         }
     }
+}
+SDL_Texture* Graphics::loadTexture(const std::string& path) {
+	std::string finalPath;
+	finalPath = gRootDir;
+	finalPath += "/img/";
+	finalPath += path;
+	
+	
+	SDL_Surface *surfaceLoaded = IMG_Load(finalPath.c_str());
+	SDL_Texture *texture = nullptr;
+
+	if (surfaceLoaded)
+	{
+		SDL_SetColorKey(surfaceLoaded, SDL_TRUE, SDL_MapRGB(surfaceLoaded->format, 255, 0, 255));
+		texture = SDL_CreateTextureFromSurface(m_pRenderer, surfaceLoaded);
+		
+		SDL_FreeSurface(surfaceLoaded);
+	}
+	
+	return texture;
 }
 void Graphics::loadFont(const std::string& path, const std::string& index, uint8_t ptsize) {
     

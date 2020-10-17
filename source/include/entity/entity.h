@@ -27,14 +27,13 @@
 #include <string>
 #include <SDL2/SDL_rect.h>
 #include "../base/vector_2d.h"
-#include "../loader/loader.h"
 
 
 class Entity {
 public:
 	virtual ~Entity() { }
 
-    virtual bool load(const Loader* loader) = 0;
+    virtual bool load(const void* loaderPtr) = 0;
     virtual void unload() = 0;
     
     virtual void update(int32_t elapsedTime) { }

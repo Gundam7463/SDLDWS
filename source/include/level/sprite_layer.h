@@ -24,18 +24,22 @@
 
 #pragma once 
 
+#include <cstdint>
+#include <vector>
+#include "../base/tinyxml2.h"
+#include "../entity/entity.h"
 
-#include "layer.h"
 
-
-class SpriteLayer : public Layer {
+class SpriteLayer {
 public:
 
-	virtual void load(tinyxml2::XMLElement* root);
-	virtual void unload();
+	bool load(tinyxml2::XMLElement* objectgroup);
+	void unload();
 
-	virtual void update(int32_t elapsedTime);
-	virtual void draw();
+	void update(int32_t elapsedTime);
+	void draw();
 
-	virtual const std::string getType() const { return "SpriteLayer"; }
+	//virtual const std::string getType() const { return "SpriteLayer"; }
+private:
+	std::vector<Entity*> m_entities;
 };

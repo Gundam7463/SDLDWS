@@ -36,7 +36,7 @@ class Sprite : public Entity {
 public:
     friend class Animation;
     
-    virtual bool load(const Loader* loader);
+    virtual bool load(const void* loaderPtr);
     virtual void unload();
     
     virtual void update(int32_t elapsedTime);

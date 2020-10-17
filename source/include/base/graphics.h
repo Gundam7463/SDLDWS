@@ -60,10 +60,20 @@ public:
 	 * 
 	 * @brief Load an texture from directory /res/img/
 	 * 
-	 * @param path The texture path before: /res/img/
+	 * @param path The texture path after: /res/img/
 	 * @param index The texture nameID.
 	 */
     void loadTexture(const std::string& path, const std::string& index);
+	
+	/** SDL_Texture* loadTexture ( const std::string& path )
+	 * 
+	 * @brief Load an texture from directory /res/img/ but don't store on the list to be deallocated.
+	 * 
+	 * @param path The texture path after: /res/img/
+	 * 
+	 * @return an SDL_Texture* or nullptr.
+	 */
+	SDL_Texture* loadTexture(const std::string& path);
     
     /** void loadFont ( const std::string& path, const std::string& index, uint8_t ptsize )
 	 * 

@@ -26,8 +26,8 @@
 
 
 
-bool Background::load(const Loader* loader) {
-	return Sprite::load(loader);
+bool Background::load(const void* loaderPtr) {
+	return Sprite::load(loaderPtr);
 }
 void Background::unload() {
 	Sprite::unload();

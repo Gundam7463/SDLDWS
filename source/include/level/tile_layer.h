@@ -24,26 +24,32 @@
 
 #pragma once 
 
-#include <string>
+#include <cstdint>
 #include <vector>
-#include "../entity/entity.h"
+#include <string>
+#include <SDL2/SDL.h>
+#include "tile.h"
 #include "../base/tinyxml2.h"
 
+struct LevelInfo;
 
-class Layer {
+
+class TileLayer {
 public:
-	virtual ~Layer() { }
+	bool load(tinyxml2::XMLElement* layer, const LevelInfo& levelInfo);
+	void unload();
 
-	virtual void load(tinyxml2::XMLElement* root) = 0;
-	virtual void unload();
+	void update(int32_t elapsedTime);
+	void draw();
 
-	virtual void update(int32_t elapsedTime);
-	virtual void draw();
-
-	virtual const std::string getType() const { return "NONE"; }
+	//virtual const std::string getType() const { return "TileLayer"; }
 	
-protected:
-	Layer();
-
-	std::vector<Entity*> m_entities;
+private:
+	std::vector<Tile*> m_tiles;
+	std::vector<int32_t> m_gids;
+	
+	void setGids(const std::string& strGids);
+	void printGids(const LevelInfo& levelInfo);
+	
+	void setTiles(const LevelInfo& levelInfo);
 };
