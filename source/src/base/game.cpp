@@ -63,6 +63,7 @@ bool Game::initialize() {
 }
 void Game::finalize() {
 	m_screenManager.unload();
+	m_timer.finalize();
     Graphics::instance().unload();
 }
 void Game::mainLoop() {

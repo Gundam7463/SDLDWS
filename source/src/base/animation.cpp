@@ -36,6 +36,9 @@ Animation::Animation() : m_pTarget(nullptr), m_frameWidth(32),
 	m_src.w = m_frameWidth;
 	m_src.h = m_frameHeight;
 }
+Animation::~Animation() {
+	m_pTarget = nullptr;
+}
 Animation::Animation(uint16_t frameWidth, uint16_t frameHeight, uint8_t row, 
 	  			uint8_t startColumn, uint8_t endColumn, int32_t frameDelay) : 
 	m_frameWidth(frameWidth), m_frameHeight(frameHeight), m_row(row), 

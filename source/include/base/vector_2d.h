@@ -22,6 +22,17 @@
 	SOFTWARE.
 */
 
+/** The Vector classes.
+ * 
+ * IS: A bunch of vectors types to use on math operation.
+ * 
+ * WHERE: on objects to represent: positions, dimensions etc.
+ * 
+ * HOW WORKS: 
+ * 		Like any other generic c++ class.
+ * 		You can get, set and perform math operations.
+ */
+
 #pragma once 
 
 #include <cstdint>
@@ -29,19 +40,24 @@
 
 class VectorInt2D {
 public:
-    VectorInt2D();
+    VectorInt2D();//set x,y to 0
     VectorInt2D(int32_t x, int32_t y);
     
-    
+    //sum vectors
     VectorInt2D operator+(const VectorInt2D &v);
     VectorInt2D& operator+=(const VectorInt2D& v);
     
+	//multiply the vector members by scalar number
     VectorInt2D& operator*(int32_t scalar);
     
+	//Get member x value
     int32_t getX();
+	//Get member y value
     int32_t getY();
     
+	//Set member x value
     void setX(int32_t x);
+	//Set member y value
     void setY(int32_t y);
     
 private:
@@ -50,18 +66,21 @@ private:
 
 class VectorFloat2D {
 public:
-    VectorFloat2D();
+    VectorFloat2D();//set x,y to 0
     VectorFloat2D(float x, float y);
     
-    
+    //sum vectors
     VectorFloat2D operator+(const VectorFloat2D& v);
     VectorFloat2D& operator+=(const VectorFloat2D& v);
     
+	//multiply the vector members by scalar number
     VectorFloat2D& operator*(float scalar);
     
+	//Gets
     float getX();
     float getY();
     
+	//Sets
     void setX(float x);
     void setY(float y);
     

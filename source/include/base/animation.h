@@ -46,6 +46,8 @@ class Animation {
 public:
 	//Alternative setup
 	Animation();
+	//finalization
+	~Animation();
 	
 	/** Animation ( uint16_t frameWidth, uint16_t frameHeight, uint8_t row, 
 	 * 			uint8_t startColumn, uint8_t endColumn, int32_t frameDelay )

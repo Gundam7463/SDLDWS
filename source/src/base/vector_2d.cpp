@@ -55,7 +55,7 @@ void VectorInt2D::setX(int32_t x) { m_x = x; }
 void VectorInt2D::setY(int32_t y) { m_y = y; }
 
 
-
+//================================== VectorFloat2D =======================================
 
 VectorFloat2D::VectorFloat2D() : m_x(0.f), m_y(0.f) { }
 VectorFloat2D::VectorFloat2D(float x, float y) : m_x(x), m_y(y) { }
