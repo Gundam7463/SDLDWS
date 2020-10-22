@@ -26,7 +26,7 @@
 #include <string>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
-#include "../../include/base/graphics.h"
+#include "../../include/miscellaneous/graphics.h"
 
 
 extern std::string gRootDir;//our default /res/ path

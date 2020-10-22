@@ -36,6 +36,7 @@
 #pragma once 
 
 #include "vector_2d.h"
+#include <SDL2/SDL.h>
 
 
 

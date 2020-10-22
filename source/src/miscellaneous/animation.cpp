@@ -22,8 +22,8 @@
 	SOFTWARE.
 */
 
-#include "../../include/base/animation.h"
-#include "../../include/base/graphics.h"
+#include "../../include/miscellaneous/animation.h"
+#include "../../include/miscellaneous/graphics.h"
 #include "../../include/entity/sprite.h"
 
 

@@ -23,10 +23,10 @@
 */
 
 #include <SDL2/SDL.h>
-#include "../../include/base/game.h"
-#include "../../include/base/graphics.h"
+#include "../../include/miscellaneous/game.h"
+#include "../../include/miscellaneous/graphics.h"
 #include "../../include/input/input_manager.h"
-#include "../../include/entity/background.h"
+#include "../../include/entity/sprite.h"
 
 
 Game::~Game() {
@@ -112,5 +112,5 @@ void Game::draw() {
 }
 
 void Game::factoryRegister() {
-	m_objectFactory.registerObject("Background", new BackgroundFactoryContainer());
+	m_objectFactory.registerObject("Sprite", new SpriteFactoryContainer());
 }

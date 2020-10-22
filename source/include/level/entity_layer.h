@@ -22,47 +22,24 @@
 	SOFTWARE.
 */
 
-#include <cstdio>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
-#include "../../include/base/game.h"
+#pragma once 
+
+#include <cstdint>
+#include <vector>
+#include "../miscellaneous/tinyxml2.h"
+#include "../entity/entity.h"
 
 
-void sdlInit();
-void sdlQuit();
+class EntityLayer {
+public:
 
-void printVersions();
+	bool load(tinyxml2::XMLElement* objectgroup);
+	void unload();
 
-int main(int argc, char **argv) {
-    sdlInit();
-	printVersions();
+	void update(int32_t elapsedTime);
+	void draw();
 
-    Game::instance().run();
-   
-    sdlQuit();
-    SDL_Log("SDL Last Error: %s\n", SDL_GetError()); 
-}
-
-void sdlInit() {
-    SDL_Init(SDL_INIT_VIDEO);
-    TTF_Init();
-    IMG_Init(IMG_INIT_PNG);
-}
-void sdlQuit() {
-    IMG_Quit();
-    TTF_Quit();
-    SDL_Quit();
-}
-
-void printVersions() {
-	SDL_version compiled;
-	SDL_version linked;
-	
-	SDL_VERSION(&compiled);
-	SDL_GetVersion(&linked);
-	printf("We compiled against SDL version %d.%d.%d ...\n",
-		compiled.major, compiled.minor, compiled.patch);
-	printf("But we are linking against SDL version %d.%d.%d.\n",
-		linked.major, linked.minor, linked.patch);
-}
+	//virtual const std::string getType() const { return "EntityLayer"; }
+private:
+	std::vector<Entity*> m_entities;
+};

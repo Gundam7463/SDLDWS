@@ -22,24 +22,16 @@
 	SOFTWARE.
 */
 
-#pragma once 
+#include "../../include/miscellaneous/camera.h"
+#include "../../include/miscellaneous/graphics.h"
 
-#include <cstdint>
-#include <vector>
-#include "../base/tinyxml2.h"
-#include "../entity/entity.h"
-
-
-class SpriteLayer {
-public:
-
-	bool load(tinyxml2::XMLElement* objectgroup);
-	void unload();
-
-	void update(int32_t elapsedTime);
-	void draw();
-
-	//virtual const std::string getType() const { return "SpriteLayer"; }
-private:
-	std::vector<Entity*> m_entities;
-};
+Camera::Camera() {
+    m_viewport.x = m_viewport.y = 0;
+}
+void Camera::init() {
+    int ww, wh;
+    Graphics::instance().getWindowSize(&ww, &wh);
+    
+    m_viewport.w = ww;
+    m_viewport.h = wh;
+}

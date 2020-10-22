@@ -23,9 +23,8 @@
 */
 
 #include "../../include/screen/screen.h"
-#include "../../include/loader/sprite_loader.h"
-#include "../../include/entity/background.h"
-#include "../../include/base/game.h"
+#include "../../include/miscellaneous/loader.h"
+#include "../../include/miscellaneous/game.h"
  
 
 void Screen::unload() {
@@ -43,20 +42,13 @@ bool Screen::load(tinyxml2::XMLElement *element) {
 	}
 	for (tinyxml2::XMLElement *e = element->FirstChildElement(); e; e = e->NextSiblingElement())
 	{
-		void* loader = nullptr;
-		
 		if (std::string(e->Value()) == "loader")
 		{
-			if (std::string(e->Attribute("type")) == "SpriteLoader")
+			Loader loader;
+			
+			if (!loader.load(e->Attribute("path")))
 			{
-				loader = new SpriteLoader();
-				SpriteLoader* spriteLoader = (SpriteLoader*)loader;
-				
-				if (!spriteLoader->load(e->Attribute("path")))
-				{
-					delete spriteLoader;
-					return false;
-				}
+				return false;
 			}
 			
 			Entity *entity = Game::instance().getFactory().createObject(e->Attribute("obj"),
@@ -66,7 +58,6 @@ bool Screen::load(tinyxml2::XMLElement *element) {
 				m_entities.push_back(entity);
 			}
 			else {
-				loader = 0;
 				return false;
 			}
 		}

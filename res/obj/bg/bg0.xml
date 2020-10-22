@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<loader type="sprite-loader">
+<loader obj="Sprite">
   <position x="0.f" y="0.f"/>
   <size width="32" height="32"/>
   <img path="splash-screen-bg.png" nameID="splash-screen-bg"/>

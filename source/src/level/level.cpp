@@ -24,7 +24,7 @@
 
 #include <SDL2/SDL.h>
 #include "../../include/level/level.h"
-#include "../../include/level/sprite_layer.h"
+#include "../../include/level/entity_layer.h"
 
 extern std::string gRootDir;
 
@@ -120,15 +120,15 @@ bool Level::loadLevel(const std::string& levelName) {
 			{
 				if (std::string(objectgroup->Value()) == "objectgroup")
 				{
-					SpriteLayer *newSpriteLayer = new SpriteLayer();
-					if (!newSpriteLayer->load(objectgroup))
+					EntityLayer *newEntityLayer = new EntityLayer();
+					if (!newEntityLayer->load(objectgroup))
 					{
-						delete newSpriteLayer;
+						delete newEntityLayer;
 						unload();
 						return false;
 					}
 					
-					m_spriteLayers.push_back(newSpriteLayer);
+					m_spriteLayers.push_back(newEntityLayer);
 				}
 			}
 			

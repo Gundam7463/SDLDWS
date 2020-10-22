@@ -26,15 +26,15 @@
 
 #include <map>
 #include <SDL2/SDL_rect.h>
-#include "../base/vector_2d.h"
+#include "../miscellaneous/vector_2d.h"
 
 
 class Animation;
 
-class SpriteLoader {
+class Loader {
 public:
 
-	~SpriteLoader();
+	~Loader();
 	
     bool load(const std::string& path);
     
@@ -48,6 +48,7 @@ public:
     const std::string& getImgName() const { return m_imgName; }
 	
 	std::map<std::string, Animation*> getAnimations() const { return m_animations; }
+	const std::string& getObjectName() const { return m_objectName; }
     
 private:
     VectorFloat2D m_position;
@@ -57,4 +58,5 @@ private:
     std::string m_imgName;
     
     std::map<std::string, Animation*> m_animations;
+	std::string m_objectName;
 };

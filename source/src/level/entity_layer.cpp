@@ -22,47 +22,43 @@
 	SOFTWARE.
 */
 
-#include "../../include/level/sprite_layer.h"
-#include "../../include/entity/sprite.h"
-#include "../../include/loader/sprite_loader.h"
+#include "../../include/level/entity_layer.h"
+#include "../../include/miscellaneous/loader.h"
+#include "../../include/miscellaneous/game.h"
 
 
 
-bool SpriteLayer::load(tinyxml2::XMLElement* objectgroup) {
+bool EntityLayer::load(tinyxml2::XMLElement* objectgroup) {
 
 	for (tinyxml2::XMLElement* object = objectgroup->FirstChildElement(); object;
 			object = object->NextSiblingElement())
 	{
 		if (std::string(object->Value()) == "object")
 		{
-			Entity* sprite = nullptr;
-			SpriteLoader* loader = nullptr;
+			Entity* entity = nullptr;
+			Loader loader;
 
 			tinyxml2::XMLElement* property = object->FirstChildElement()->FirstChildElement();
 			
-			
 			if (std::string(property->Value()) == "property")
 			{
-				sprite = new Sprite();
-				loader = new SpriteLoader();
-				
-				loader->load(property->Attribute("value"));
-				/** If sprite is on tiled editor positive for axis x and y, accept the tiled editor
-				 * x,y coordinate values
+				loader.load(property->Attribute("value"));
+				/** If entity is on tiled editor positive for axis x and y, accept the tiled editor
+				 * x,y coordinate values.
 				 */
 				if (object->FloatAttribute("x") >= 0.f && object->FloatAttribute("y") >= 0.f)
 				{
 					VectorFloat2D newPosition(object->FloatAttribute("x"), object->FloatAttribute("y"));
-					loader->setPosition(newPosition);
+					loader.setPosition(newPosition);
 				}
 				
-				if (sprite->load(loader))
+				entity = Game::instance().getFactory().createObject(loader.getObjectName(), loader);
+				if (entity)
 				{
-					m_entities.push_back(sprite);	
-					delete loader;
+					m_entities.push_back(entity);
 				}
-				else {
-					delete loader;
+				else 
+				{
 					return false;
 				}
 			}
@@ -71,7 +67,7 @@ bool SpriteLayer::load(tinyxml2::XMLElement* objectgroup) {
 	
 	return true;
 }
-void SpriteLayer::unload() {
+void EntityLayer::unload() {
 	for (uint32_t i = 0; i < m_entities.size(); i++)
 	{
 		m_entities[i]->unload();
@@ -80,13 +76,13 @@ void SpriteLayer::unload() {
 	m_entities.clear();
 }
 
-void SpriteLayer::update(int32_t elapsedTime) {
+void EntityLayer::update(int32_t elapsedTime) {
 	for (uint32_t i = 0; i < m_entities.size(); i++)
 	{
 		m_entities[i]->update(elapsedTime);
 	}
 }
-void SpriteLayer::draw() {
+void EntityLayer::draw() {
 	for (uint32_t i = 0; i < m_entities.size(); i++)
 	{
 		m_entities[i]->draw();

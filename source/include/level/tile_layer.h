@@ -29,7 +29,7 @@
 #include <string>
 #include <SDL2/SDL.h>
 #include "tile.h"
-#include "../base/tinyxml2.h"
+#include "../miscellaneous/tinyxml2.h"
 
 struct LevelInfo;
 

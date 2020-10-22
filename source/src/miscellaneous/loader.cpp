@@ -22,15 +22,15 @@
 	SOFTWARE.
 */
 
-#include "../../include/base/tinyxml2.h"
-#include "../../include/loader/sprite_loader.h"
-#include "../../include/base/animation.h"
+#include "../../include/miscellaneous/tinyxml2.h"
+#include "../../include/miscellaneous/loader.h"
+#include "../../include/miscellaneous/animation.h"
 
 extern std::string gRootDir;
 
 
 
-SpriteLoader::~SpriteLoader() {
+Loader::~Loader() {
 	for (std::map<std::string, Animation*>::iterator it = m_animations.begin(); 
 	it != m_animations.end(); it++)
 	{
@@ -38,7 +38,7 @@ SpriteLoader::~SpriteLoader() {
 	}
 	m_animations.clear();
 }
-bool SpriteLoader::load(const std::string& path) {
+bool Loader::load(const std::string& path) {
     std::string finalPath = gRootDir;
     finalPath += "/obj/";
     finalPath += path;
@@ -53,32 +53,33 @@ bool SpriteLoader::load(const std::string& path) {
     }
     
     tinyxml2::XMLElement *root = doc.FirstChildElement();
-    
-    if (std::string(root->Attribute("type")) == "sprite-loader")
-    {
-        for (tinyxml2::XMLElement *element = root->FirstChildElement(); element; element = element->NextSiblingElement())
-        {
-            if (std::string(element->Value()) == "position")
-            {
-                m_position.setX(element->FloatAttribute("x"));
-                m_position.setY(element->FloatAttribute("y"));                
-            }
-            if (std::string(element->Value()) == "size")
-            {
-                m_size.setX(element->IntAttribute("width"));
-                m_size.setY(element->IntAttribute("height"));
-            }
-            if (std::string(element->Value()) == "img")
-            {
-                m_imgPath = element->Attribute("path");
-                m_imgName = element->Attribute("nameID");
-            }
-            
-            if (std::string(element->Value()) == "animation")
-            {
+	if (std::string(root->Value()) == "loader")
+	{
+		m_objectName = root->Attribute("obj");
+		
+		for (tinyxml2::XMLElement *element = root->FirstChildElement(); element; element = element->NextSiblingElement())
+		{
+			if (std::string(element->Value()) == "position")
+			{
+				m_position.setX(element->FloatAttribute("x"));
+				m_position.setY(element->FloatAttribute("y"));                
+			}
+			if (std::string(element->Value()) == "size")
+			{
+				m_size.setX(element->IntAttribute("width"));
+				m_size.setY(element->IntAttribute("height"));
+			}
+			if (std::string(element->Value()) == "img")
+			{
+				m_imgPath = element->Attribute("path");
+				m_imgName = element->Attribute("nameID");
+			}
+			
+			if (std::string(element->Value()) == "animation")
+			{
 				for (tinyxml2::XMLElement *anim = element->FirstChildElement(); 
 				anim; anim = anim->NextSiblingElement())
-                {
+				{
 				
 					std::string name = anim->Attribute("name");
 					uint16_t frameWidth = anim->IntAttribute("frame-width");
@@ -93,9 +94,12 @@ bool SpriteLoader::load(const std::string& path) {
 					endColumn, frameDelay);
 					m_animations[name] = newAnim;				
 				}
-            }
-        }
-    }
+			}
+		}
+	}
+	else {
+		return false;
+	}
     
     return true;
 }

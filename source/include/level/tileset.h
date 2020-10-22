@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <string>
 #include <SDL2/SDL.h>
-#include "../base/graphics.h"
+#include "../miscellaneous/graphics.h"
 
 
 struct Tileset {

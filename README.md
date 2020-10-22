@@ -1,6 +1,14 @@
-Readme for SDLDWS Project
+#SDLDWS
 
-LICENSE:
+SDLDWS is a framework for game programming development, write in C++ using SDL2 and XML.
+
+##Installation
+1- Copy the folder res/ and source/ to the folder of your c++ project.
+2- Install the SDL2, SDL2_image, SDL2_ttf development lib's to you environment IDE.
+3- Include the source/ folder to the project.
+4- And compile with c++11.
+
+##LICENSE:
 
 files: tinyxml2.h and tinyxml2.cpp has your own licenses, please check.
 

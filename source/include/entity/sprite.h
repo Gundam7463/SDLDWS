@@ -28,6 +28,9 @@
 #include <map>
 #include <SDL2/SDL.h>
 #include "entity.h"
+#include "object_factory.h"
+
+
 
 class Animation;
 
@@ -36,7 +39,7 @@ class Sprite : public Entity {
 public:
     friend class Animation;
     
-    virtual bool load(const void* loaderPtr);
+    virtual bool load(const Loader& loader);
     virtual void unload();
     
     virtual void update(int32_t elapsedTime);
@@ -47,4 +50,20 @@ protected:
     std::map<std::string, Animation*> m_animations;
     std::map<std::string, Animation*>::iterator m_animationsIt;
     std::string m_currentAnimation;
+};
+
+
+class SpriteFactoryContainer : public FactoryContainer {
+public:
+	virtual Entity* create(const Loader& loader) {
+		
+		Sprite *_instance = new Sprite();
+		if (!_instance->load(loader))
+		{
+			delete _instance;
+			return nullptr;
+		}
+		
+		return _instance;
+	}
 };

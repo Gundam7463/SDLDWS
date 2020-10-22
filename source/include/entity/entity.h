@@ -22,25 +22,57 @@
 	SOFTWARE.
 */
 
+/** The Entity class.
+ * 
+ * IS: All kind of things for our games, you can define as triggers entity's.
+ * 
+ * WHERE: Contained on Screens, Level.
+ * 
+ * HOW WORKS: 
+ * 		As a polymorphic object.
+ */
+
 #pragma once 
 
 #include <string>
 #include <SDL2/SDL_rect.h>
-#include "../base/vector_2d.h"
+#include "../miscellaneous/vector_2d.h"
+#include "../miscellaneous/loader.h"
 
 
 class Entity {
 public:
-	virtual ~Entity() { }
+	virtual ~Entity() { }//get rid of some warnings
 
-    virtual bool load(const void* loaderPtr) = 0;
+    /** virtual bool load ( const Loader& loader ) = 0;
+	 * 
+	 * @brief Load and initialize the entity.
+	 * 
+	 * @param loader the loader reference.
+	 * 
+	 * @return true on success or, false in case of errors.
+	 */
+    virtual bool load(const Loader& loader) = 0;
+	
+    /** virtual void unload ( ) = 0;
+	 * 
+	 * @brief unload the entity loaded values.
+	 */
     virtual void unload() = 0;
     
+    /** virtual void update ( int32_t elapsedTime ) { }
+	 * 
+	 * @brief Update the entity states.
+	 * 
+	 * @param elapsedTime the ms time delay in each iteration
+	 */
     virtual void update(int32_t elapsedTime) { }
+	
+	//Draw's if it needed.
     virtual void draw() { }
     
 protected:
-
+	//All entities must have a position and size.
     VectorFloat2D m_position;
     VectorInt2D m_size;
 };

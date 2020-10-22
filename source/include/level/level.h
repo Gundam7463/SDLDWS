@@ -27,9 +27,9 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "../base/tinyxml2.h"
+#include "../miscellaneous/tinyxml2.h"
 #include "tile_layer.h"
-#include "sprite_layer.h"
+#include "entity_layer.h"
 #include "tileset.h"
 
 
@@ -67,7 +67,7 @@ public:
 	
 private:
 	std::vector<TileLayer*> m_tileLayers;
-	std::vector<SpriteLayer*> m_spriteLayers;
+	std::vector<EntityLayer*> m_spriteLayers;
 	
 	std::map<std::string, tinyxml2::XMLDocument*> m_levelFiles;
 	std::map<std::string, tinyxml2::XMLDocument*>::iterator m_levelFilesIt;

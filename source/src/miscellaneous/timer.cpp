@@ -24,8 +24,8 @@
 
 #include <string>
 #include <SDL2/SDL.h>
-#include "../../include/base/timer.h"
-#include "../../include/base/graphics.h"
+#include "../../include/miscellaneous/timer.h"
+#include "../../include/miscellaneous/graphics.h"
 #include "../../include/input/input_manager.h"
 
 

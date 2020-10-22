@@ -23,7 +23,7 @@
 */
 
 #include "../../include/level/tile.h"
-#include "../../include/base/graphics.h"
+#include "../../include/miscellaneous/graphics.h"
 
 
 void Tile::setup(VectorFloat2D position, SDL_Rect srcRect, SDL_Texture* tilesheet, bool invisible) {

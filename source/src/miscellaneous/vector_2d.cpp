@@ -22,7 +22,7 @@
 	SOFTWARE.
 */
 
-#include "../../include/base/vector_2d.h"
+#include "../../include/miscellaneous/vector_2d.h"
 
 
 VectorInt2D::VectorInt2D() : m_x(0), m_y(0) { }
