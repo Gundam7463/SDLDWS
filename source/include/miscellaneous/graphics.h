@@ -162,35 +162,34 @@ public:
 		const SDL_Rect* dstRect=nullptr, const double angle=0.0, const SDL_Point* center=nullptr,
 			const SDL_RendererFlip flip=SDL_FLIP_NONE);
 	
-    /** void drawTextSolid ( const std::string& index, const char* text, SDL_Color fg, 
+    /** void drawTextSolid ( const std::string& fontIndex, const char* text, SDL_Color fg, 
 	 * 	const SDL_Rect* srcRect, VectorInt2D position )
 	 * 
 	 * @brief Draw a text on screen, this operation may be slow.
 	 * 
-	 * @param index The font nameID.
+	 * @param fontIndex The font nameID.
 	 * @param text The text that will be rendering to the screen.
 	 * @param fg The color to the text.
 	 * @param srcRect The rectangle that represents the portion of the entire texture text, 
 	 * 0 to get the entire texture.
 	 * @param position 2D(x,y) vector that represents in pixel, the position of the text on screen.
 	 */
-    void drawTextSolid(const std::string& index, const char* text, SDL_Color fg, const SDL_Rect* srcRect, 
+    void drawTextSolid(const std::string& fontIndex, const char* text, SDL_Color fg, const SDL_Rect* srcRect, 
         VectorInt2D position);
 		
-    /** SDL_Texture* drawTextSolid ( const std::string& index, SDL_Rect* textureRect, const char* text, 
+    /** SDL_Texture* drawTextSolid ( const std::string& fontIndex, SDL_Rect* textureRect, const char* text, 
 	 * 	SDL_Color fg )
 	 * 
 	 * @brief Draw a text to texture, this operation can be fast if you draw in a different time interval.
 	 * 
-	 * @param index The font nameID.
-	 * @param textureRect the rectangle of the entire texture.
+	 * @param fontIndex The font nameID.
 	 * @param text The text that will be rendering to the screen.
 	 * @param fg The color to the text.
-	 * 
+	 * @param srcRect The rectangle that will be filled with the texture size, or 0 if not needed.
 	 * @return Returns the new texture text created.
 	 */
-    SDL_Texture* drawTextSolidToTexture(const std::string& index, SDL_Rect* textureRect, const char* text, 
-		SDL_Color fg);
+    SDL_Texture* drawTextSolidToTexture(const std::string& fontIndex, const char* text, SDL_Color fg,
+		SDL_Rect* srcRect);
     
 private:
     Graphics();//constructor that set default values.

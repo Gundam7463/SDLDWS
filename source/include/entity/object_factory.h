@@ -22,6 +22,16 @@
 	SOFTWARE.
 */
 
+/** The Object Factory class.
+ * 
+ * IS: The application object factory.
+ * 
+ * WHERE: Contained on Game object.
+ * 
+ * HOW WORKS: 
+ * 		It can register new objects and create then.
+ */
+
 #pragma once 
 
 #include <string>
@@ -29,7 +39,8 @@
 #include "entity.h"
 
 
-
+/** This is the interface for new objects containers
+ */
 class FactoryContainer {
 public:
 	virtual ~FactoryContainer() { }
@@ -43,6 +54,7 @@ class ObjectFactory {
 public:
 	~ObjectFactory();
 
+	//simple register with _type which works like the name ID
 	void registerObject(const std::string &_type, FactoryContainer *_container);
 	Entity *createObject(const std::string &_type, const Loader& loader);
 	

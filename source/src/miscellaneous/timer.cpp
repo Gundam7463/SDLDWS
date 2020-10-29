@@ -22,7 +22,7 @@
 	SOFTWARE.
 */
 
-#include <string>
+#include <sstream>
 #include <SDL2/SDL.h>
 #include "../../include/miscellaneous/timer.h"
 #include "../../include/miscellaneous/graphics.h"
@@ -103,14 +103,13 @@ void Timer::drawFpsCount(VectorInt2D position) {
 		}
 
 		
-		std::string str = "FPS:  ";
-		str += std::to_string(m_fpsCount);
-		str.resize(10);
+		std::stringstream strText;
+		strText << "FPS:  " << m_fpsCount;
 
 
 		SDL_Color color = { 216, 30, 120, 0xff };
-		m_fpsTexture = Graphics::instance().drawTextSolidToTexture("barlow16", &m_fpsTextureRect, 
-			str.c_str(), color); 
+		m_fpsTexture = Graphics::instance().drawTextSolidToTexture("barlow16", strText.str().c_str(),
+			color, &m_fpsTextureRect); 
     }
 
 	if (m_fpsTexture)

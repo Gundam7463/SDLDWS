@@ -156,24 +156,24 @@ void Graphics::drawTextSolid(const std::string& index, const char* text, SDL_Col
         SDL_FreeSurface(surface);
     }
 }
-SDL_Texture* Graphics::drawTextSolidToTexture(const std::string& index, SDL_Rect* textureRect, const char* text, 
-	SDL_Color fg) {
+SDL_Texture* Graphics::drawTextSolidToTexture(const std::string& fontIndex, const char* text, SDL_Color fg,
+		SDL_Rect* srcRect) {
 		
 	SDL_Texture *texture = nullptr;
 			
-    m_fontListIt = m_fontList.find(index);
+    m_fontListIt = m_fontList.find(fontIndex);
     if (m_fontListIt != m_fontList.end())
     {            
-        TTF_Font *font = m_fontList[index];
+        TTF_Font *font = m_fontList[fontIndex];
         SDL_Surface* surface = TTF_RenderUTF8_Solid(font, text, fg);
         
         texture = SDL_CreateTextureFromSurface(m_pRenderer, surface);
 		
-		if (textureRect)
+		if (srcRect)
 		{
-			textureRect->x = textureRect->y = 0;
-			textureRect->w = surface->w;
-			textureRect->h = surface->h;
+			srcRect->x = srcRect->y = 0;
+			srcRect->w = surface->w;
+			srcRect->h = surface->h;
 		}
 		
         SDL_FreeSurface(surface);
