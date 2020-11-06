@@ -28,12 +28,16 @@
  * 
  * WHERE: Container only on game class, but visible to objects.
  * 
- * HOW WORKS: simple draw a portion of the render to the screen.
+ * HOW WORKS: simple draw a portion of the render to the screen. 
+ * Every time one screen is loaded the init method is called. 
+ * On level loadLevel the max Width/Height is the level size.
  */
 
 #pragma once 
 
+#include <cstdint>
 #include <SDL2/SDL_rect.h>
+#include "vector_2d.h"
 
 
 class Camera {
@@ -43,13 +47,27 @@ public:
     
     /** void init ( )
 	 * 
-	 * @brief Set the viewport size.
+	 * @brief Set the viewport max size or reset
+	 * 
+	 * @param maxWidth the max width to the viewport
+	 * @param maxHeight the max height to the viewport
 	 */
-    void init();
-    
-public:
-    SDL_Rect m_viewport;
-    
+    void init(uint32_t maxWidth, uint32_t maxHeight);
+	
+	//Move the camera along the x axis
+	void moveHorizontal(float speed);
+	//Move the camera along the y axis
+	void moveVertical(float speed);
+
+	SDL_Rect getViewportRect();
+	VectorFloat2D getPosition() {
+		return m_position;
+	}
+
+	//update the SDL/SDL_Renderer viewport
+	void updateViewport();
+	
 private:
-    
+    VectorFloat2D m_position;
+	VectorInt2D m_size;
 };

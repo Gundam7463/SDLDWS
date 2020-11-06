@@ -25,6 +25,7 @@
 #include <SDL2/SDL.h>
 #include "../../include/level/level.h"
 #include "../../include/level/entity_layer.h"
+#include "../../include/miscellaneous/game.h"
 
 extern std::string gRootDir;
 
@@ -172,6 +173,9 @@ bool Level::loadLevel(const std::string& levelName) {
 		return false;
 	}
 	
+	Game::instance().getCamera().init(m_levelInfo.m_level_width_in_tile * m_levelInfo.m_level_tile_width_px,
+		m_levelInfo.m_level_height_in_tile * m_levelInfo.m_level_tile_height_px);
+	
 	return true;
 }
 void Level::update(int32_t elapsedTime) {
@@ -188,7 +192,7 @@ void Level::update(int32_t elapsedTime) {
 void Level::draw() {
 	for (uint32_t i = 0; i < m_tileLayers.size(); i++)
 	{
-		m_tileLayers[i]->draw();
+		m_tileLayers[i]->draw(m_levelInfo);
 	}
 	
 	for (uint32_t i = 0; i < m_spriteLayers.size(); i++)

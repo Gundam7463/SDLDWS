@@ -47,7 +47,10 @@ bool Game::initialize() {
     Graphics::instance().loadFont("Barlow-Light.ttf", "barlow16", 16);
     Graphics::instance().loadFont("Barlow-Light.ttf", "barlow20", 20);
 	
-    m_camera.init();
+	int ww, wh;
+	Graphics::instance().getWindowSize(&ww, &wh);
+	
+    m_camera.init(ww, wh);
     InputManager::instance().createCursor("cursor.png", 0, 0);
 	
 	factoryRegister();
@@ -101,13 +104,13 @@ void Game::mainLoop() {
 }
 void Game::update(int32_t elapsedTime) {
 	//Update the SDL viewport
-    Graphics::instance().setViewport(&m_camera.m_viewport);
 	m_screenManager.update(elapsedTime);
+	m_camera.updateViewport();
 }
 void Game::draw() {
     Graphics::instance().clearColor();
 	m_screenManager.draw();
-	m_timer.drawFpsCount(VectorInt2D(0, 0));
+	m_timer.drawFpsCount(VectorInt2D(200, 0));
     Graphics::instance().renderPresent();
 }
 

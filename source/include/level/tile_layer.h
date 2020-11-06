@@ -40,7 +40,7 @@ public:
 	void unload();
 
 	void update(int32_t elapsedTime);
-	void draw();
+	void draw(const LevelInfo& levelInfo);
 
 	//virtual const std::string getType() const { return "TileLayer"; }
 	

@@ -25,6 +25,7 @@
 #include "../../include/screen/screen.h"
 #include "../../include/miscellaneous/loader.h"
 #include "../../include/miscellaneous/game.h"
+#include "../../include/miscellaneous/graphics.h"
  
 
 void Screen::unload() {
@@ -62,6 +63,10 @@ bool Screen::load(tinyxml2::XMLElement *element) {
 			}
 		}
 	}
+	
+	int ww, wh;
+	Graphics::instance().getWindowSize(&ww, &wh);
+	Game::instance().getCamera().init(ww, wh);
 	
 	return true;
 }

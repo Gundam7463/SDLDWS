@@ -24,6 +24,8 @@
 
 #include "../../include/level/tile_layer.h"
 #include "../../include/level/level.h"
+#include "../../include/miscellaneous/game.h"
+#include "../../include/input/input_manager.h"
 
 
 bool TileLayer::load(tinyxml2::XMLElement* layer, const LevelInfo& levelInfo) {
@@ -51,11 +53,63 @@ void TileLayer::unload() {
 
 void TileLayer::update(int32_t elapsedTime) {
 	
-}
-void TileLayer::draw() {
-	for (uint32_t i = 0; i < m_tiles.size(); i++)
+	if (InputManager::instance().getKeyHold(SDL_SCANCODE_LEFT))
 	{
-		m_tiles[i]->draw();
+		Game::instance().getCamera().moveHorizontal(0.13f * elapsedTime);
+	}
+	if (InputManager::instance().getKeyHold(SDL_SCANCODE_RIGHT))
+	{
+		Game::instance().getCamera().moveHorizontal((-0.13f) * elapsedTime);
+	}
+	if (InputManager::instance().getKeyHold(SDL_SCANCODE_DOWN))
+	{
+		Game::instance().getCamera().moveVertical((-0.13f) * elapsedTime);
+	}
+	if (InputManager::instance().getKeyHold(SDL_SCANCODE_UP))
+	{
+		Game::instance().getCamera().moveVertical(0.13f * elapsedTime);
+	}
+}
+void TileLayer::draw(const LevelInfo& levelInfo) {
+	int ww, wh;
+	Graphics::instance().getWindowSize(&ww, &wh);
+	ww += levelInfo.m_level_tile_width_px;
+	wh += levelInfo.m_level_tile_height_px;
+	
+	VectorFloat2D camPos = Game::instance().getCamera().getPosition();
+
+	const uint32_t startRowInput = camPos.getY() / levelInfo.m_level_tile_height_px < 0 ? -(camPos.getY() / levelInfo.m_level_tile_height_px) : camPos.getY() / levelInfo.m_level_tile_height_px;
+	const uint32_t startColumnInput = camPos.getX() / levelInfo.m_level_tile_width_px < 0 ? -(camPos.getX() / levelInfo.m_level_tile_width_px) : camPos.getX() / levelInfo.m_level_tile_width_px;
+	
+	uint32_t startRow = startRowInput % levelInfo.m_level_height_in_tile;
+	uint32_t startColumn = startColumnInput % levelInfo.m_level_width_in_tile;
+	
+
+	if (startRow >= levelInfo.m_level_height_in_tile - (wh / levelInfo.m_level_tile_height_px))
+	{
+		startRow = levelInfo.m_level_height_in_tile - (wh / levelInfo.m_level_tile_height_px);
+	}	
+	if (startColumn >= levelInfo.m_level_width_in_tile - (ww / levelInfo.m_level_tile_width_px))
+	{
+		startColumn = levelInfo.m_level_width_in_tile - (ww / levelInfo.m_level_tile_width_px);
+	}
+	
+	const uint32_t endRow = startRow + (wh / levelInfo.m_level_tile_height_px);
+	const uint32_t endColumn = startColumn + (ww / levelInfo.m_level_tile_width_px);
+	
+//	printf("viewport.y: %d\n", viewport.y);
+//	printf("viewport.x: %d\n", viewport.x);
+//	printf("startRow: %u\n", startRow);
+//	printf("startColumn: %u\n", startColumn);
+//	printf("endRow: %u\n", endRow);
+//	printf("endColumn: %u\n", endColumn);
+	
+	for (uint32_t row = startRow; row < endRow; row++)
+	{
+		for (uint32_t column = startColumn; column < endColumn; column++)
+		{
+			m_tiles[row * levelInfo.m_level_width_in_tile + column]->draw();
+		}
 	}
 }
 
