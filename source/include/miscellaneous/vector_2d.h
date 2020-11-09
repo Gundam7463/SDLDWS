@@ -44,8 +44,12 @@ public:
     VectorInt2D(int32_t x, int32_t y);
     
     //sum vectors
-    VectorInt2D operator+(const VectorInt2D &v);
+    VectorInt2D operator+(const VectorInt2D& v);
     VectorInt2D& operator+=(const VectorInt2D& v);
+	
+	//subtraction
+	VectorInt2D operator-(const VectorInt2D& v);
+	VectorInt2D& operator-=(const VectorInt2D& v);
     
 	//multiply the vector members by scalar number
     VectorInt2D& operator*(int32_t scalar);
@@ -72,6 +76,10 @@ public:
     //sum vectors
     VectorFloat2D operator+(const VectorFloat2D& v);
     VectorFloat2D& operator+=(const VectorFloat2D& v);
+	
+	//subtraction
+	VectorFloat2D operator-(const VectorFloat2D& v);
+	VectorFloat2D& operator-=(const VectorFloat2D& v);
     
 	//multiply the vector members by scalar number
     VectorFloat2D& operator*(float scalar);

@@ -44,11 +44,7 @@ bool TileLayer::load(tinyxml2::XMLElement* layer, const LevelInfo& levelInfo) {
 	return true;
 }
 void TileLayer::unload() {
-	for (uint32_t i = 0; i < m_tiles.size(); i++)
-	{
-		delete m_tiles[i];
-	}
-	m_tiles.clear();
+
 }
 
 void TileLayer::update(int32_t elapsedTime) {
@@ -97,18 +93,11 @@ void TileLayer::draw(const LevelInfo& levelInfo) {
 	const uint32_t endRow = startRow + (wh / levelInfo.m_level_tile_height_px);
 	const uint32_t endColumn = startColumn + (ww / levelInfo.m_level_tile_width_px);
 	
-//	printf("viewport.y: %d\n", viewport.y);
-//	printf("viewport.x: %d\n", viewport.x);
-//	printf("startRow: %u\n", startRow);
-//	printf("startColumn: %u\n", startColumn);
-//	printf("endRow: %u\n", endRow);
-//	printf("endColumn: %u\n", endColumn);
-	
 	for (uint32_t row = startRow; row < endRow; row++)
 	{
 		for (uint32_t column = startColumn; column < endColumn; column++)
 		{
-			m_tiles[row * levelInfo.m_level_width_in_tile + column]->draw();
+			m_tiles[row * levelInfo.m_level_width_in_tile + column].draw();
 		}
 	}
 }
@@ -146,7 +135,6 @@ void TileLayer::printGids(const LevelInfo& levelInfo) {
 
 void TileLayer::setTiles(const LevelInfo& levelInfo) {
 	
-	Tile* newTile = nullptr;
 	VectorFloat2D tilePosition;
 	SDL_Rect tileSrcRect;
 	SDL_Texture* tilesheet = nullptr;
@@ -157,7 +145,7 @@ void TileLayer::setTiles(const LevelInfo& levelInfo) {
 	{
 		for (uint32_t column = 0; column < levelInfo.m_level_width_in_tile; column++)
 		{
-			newTile = new Tile();
+			Tile newTile;
 			
 			tilePosition = VectorFloat2D(column * levelInfo.m_level_tile_width_px,
 				row * levelInfo.m_level_tile_height_px);
@@ -207,7 +195,7 @@ void TileLayer::setTiles(const LevelInfo& levelInfo) {
 				tileInvisible = true;
 			}
 			
-			newTile->setup(tilePosition, tileSrcRect, tilesheet, tileInvisible);
+			newTile.setup(tilePosition, tileSrcRect, tilesheet, tileInvisible);
 			m_tiles.push_back(newTile);
 		}
 	}

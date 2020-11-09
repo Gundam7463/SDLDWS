@@ -28,11 +28,12 @@
 
 
 Gamepad::Gamepad() {
-	this->initializeJoys();
+	
+	initializeJoys();
 	m_bOnce = true;
 }
 Gamepad::~Gamepad() {
-	this->finalizeJoys();
+	finalizeJoys();
 }
 void Gamepad::clearFrame() {
 	for (int32_t i = 0; i < SDL_NumJoysticks(); i++)
@@ -45,6 +46,7 @@ void Gamepad::clearFrame() {
 	}
 }
 void Gamepad::updateInput(SDL_Event &ev) {
+	
 	if (ev.type == SDL_JOYBUTTONDOWN)
 	{
 		if (m_bOnce)
@@ -77,42 +79,45 @@ void Gamepad::updateInput(SDL_Event &ev) {
 		this->initializeJoys();
 	}
 }
-bool Gamepad::getJoyPressed(int joyID, uint8_t buttonID) {
-	if (joyID >= 0 && joyID < SDL_NumJoysticks())
+bool Gamepad::getJoyPressed(uint8_t joyID, uint8_t buttonID) {
+	if (joyID < SDL_NumJoysticks())
 	{
 		return m_joyButtonsPressed[joyID][buttonID];
 	}
 	return false;
 }
-bool Gamepad::getJoyReleased(int joyID, uint8_t buttonID) {
-	if (joyID >= 0 && joyID < SDL_NumJoysticks())
+bool Gamepad::getJoyReleased(uint8_t joyID, uint8_t buttonID) {
+	if (joyID < SDL_NumJoysticks())
 	{
 		return m_joyButtonsReleased[joyID][buttonID];
 	}
 	return false;
 }
-bool Gamepad::getJoyHold(int joyID, uint8_t buttonID) {
-	if (joyID >= 0 && joyID < SDL_NumJoysticks())
+bool Gamepad::getJoyHold(uint8_t joyID, uint8_t buttonID) {
+	if (joyID < SDL_NumJoysticks())
 	{
 		return m_joyButtonsHold[joyID][buttonID];
 	}
 	return false;
 }
-int16_t Gamepad::getAxisMove(int joyID, uint8_t axis) {
-    if (joyID >= 0 && joyID < SDL_NumJoysticks() &&
-        axis >= 0)//não previne de por um valor axis muito mais alto.
+int16_t Gamepad::getAxisMove(uint8_t joyID, uint8_t axis) {
+    if (joyID < SDL_NumJoysticks())
     {
-        return m_joyAxis[joyID][axis];
+		if (axis < m_joyAxis[joyID].size())
+		{
+			return m_joyAxis[joyID][axis];
+		}
+		else {
+			return 0;
+		}
     }
 	return 0;
 }
 void Gamepad::initializeJoys() {
-	int numJoys = SDL_NumJoysticks();//tempo real o num de joys plugados.
+	int numJoys = SDL_NumJoysticks();
 	
 	if (numJoys > 0)
 	{
-        //Expande a primeira dimensão da matrix de botão baseado no número de joys.
-        //[aqui][] -> tendo 1 joy -> [0][..n] -> '..n' será alocado depois.
 		m_joyButtonsPressed.resize(numJoys);
 		m_joyButtonsReleased.resize(numJoys);
 		m_joyButtonsHold.resize(numJoys);
@@ -141,8 +146,13 @@ void Gamepad::initializeJoys() {
 	}
 }
 void Gamepad::finalizeJoys() {
+	
 	for (uint8_t i = 0; i < m_joysticks.size(); i++)
 	{
-		SDL_JoystickClose(m_joysticks[i]);
+		if (m_joysticks[i])
+		{
+			SDL_JoystickClose(m_joysticks[i]);
+		}
 	}
+	m_joysticks.clear();
 }

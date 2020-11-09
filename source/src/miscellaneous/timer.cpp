@@ -91,7 +91,7 @@ bool Timer::getTimeEvent() {
     return m_timeEvent;
 }
 
-void Timer::drawFpsCount(VectorInt2D position) {
+void Timer::drawFpsCount(VectorFloat2D position) {
     if (m_fpsDelayToShow >= 2000)
     {
 		m_fpsDelayToShow = 0;
@@ -107,14 +107,14 @@ void Timer::drawFpsCount(VectorInt2D position) {
 		strText << "FPS:  " << m_fpsCount;
 
 
-		SDL_Color color = { 216, 30, 120, 0xff };
-		m_fpsTexture = Graphics::instance().drawTextSolidToTexture("barlow16", strText.str().c_str(),
+		SDL_Color color = { 230, 230, 230, 0xff };
+		m_fpsTexture = Graphics::instance().drawTextSolidToTexture("barlow20", strText.str().c_str(),
 			color, &m_fpsTextureRect); 
     }
 
 	if (m_fpsTexture)
 	{
-		const SDL_Rect dstRect = { position.getX(), position.getY(), m_fpsTextureRect.w,
+		const SDL_Rect dstRect = { int(position.getX()), int(position.getY()), m_fpsTextureRect.w,
 			m_fpsTextureRect.h };
 		
 		Graphics::instance().drawTexture(m_fpsTexture, 0, &dstRect);

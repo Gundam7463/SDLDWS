@@ -101,7 +101,7 @@ public:
 	 * 
 	 * @param position The position to be draw on screen.
 	 */
-    void drawFpsCount(VectorInt2D position);
+    void drawFpsCount(VectorFloat2D position);
     
 private:
     int32_t m_fpsCountPrevTime;//iteration previous ms value to fps counter 

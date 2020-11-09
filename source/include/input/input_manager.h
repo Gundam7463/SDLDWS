@@ -35,7 +35,8 @@ public:
        static InputManager _instance;
        return _instance;
     }
-    
+    void finalize();
+	
     void clearFrame();
     
     void updateInput(SDL_Event &ev);
@@ -58,9 +59,9 @@ public:
 	int16_t getJoyAxisMove(int joyID, uint8_t axis);
     
 private:
-    InputManager() {}
+    InputManager();
 
     Keyboard m_keyboard;
 	Mouse m_mouse;
-	Gamepad m_gamepad;
+	Gamepad* m_gamepad;
 };

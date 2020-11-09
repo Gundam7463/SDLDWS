@@ -65,6 +65,8 @@ bool Game::initialize() {
     return true;
 }
 void Game::finalize() {
+	InputManager::instance().finalize();
+	
 	m_screenManager.unload();
 	m_timer.finalize();
     Graphics::instance().unload();
@@ -110,7 +112,7 @@ void Game::update(int32_t elapsedTime) {
 void Game::draw() {
     Graphics::instance().clearColor();
 	m_screenManager.draw();
-	m_timer.drawFpsCount(VectorInt2D(200, 0));
+	m_timer.drawFpsCount(VectorFloat2D(200, 0) - m_camera.getPosition());
     Graphics::instance().renderPresent();
 }
 

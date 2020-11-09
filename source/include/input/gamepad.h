@@ -22,6 +22,17 @@
 	SOFTWARE.
 */
 
+/** The gamepad class.
+ * 
+ * IS: Input class for joysticks and gamepads.
+ * 
+ * WHERE: Contained only on InputManager class.
+ * 
+ * HOW WORKS: Simple call the methods on the InputManager class.
+ * This object load and setup any connected gamepad on USB ports.
+ * This object support multiple gamepads and check if has new gamepad connected in game.
+ */
+
 #pragma once 
 
 #include <vector>
@@ -33,26 +44,76 @@
 
 class Gamepad {
 public:
+	//run the setup
 	Gamepad();
     
+	//free allocated memory
 	~Gamepad();
 	
+	/** void clearFrame ( )
+	 * 
+	 * @brief Clear current input frame.
+	 */
 	void clearFrame();
     
+	/** void updateInput ( SDL_Event &ev )
+	 * 
+	 * @brief Update input frame and check for connected/disconnected devices.
+	 * 
+	 * @param ev The SDL_Event union on the main loop.
+	 */
 	void updateInput(SDL_Event &ev);
 	
-	bool getJoyPressed(int joyID, uint8_t buttonID);
+	/** bool getJoyPressed ( uint8_t joyID, uint8_t buttonID )
+	 * 
+	 * @brief Get the button pressed by gamepad id and button id.
+	 * 
+	 * @param joyID The joystick/gamepad id(0 for the first connected joy/pad).
+	 * @param buttonID The joy/pad button id ( 0 .. n buttons ).
+	 * 
+	 * @return true on success or false if not.
+	 */
+	bool getJoyPressed(uint8_t joyID, uint8_t buttonID);
+
+	/** bool getJoyReleased ( uint8_t joyID, uint8_t buttonID )
+	 * 
+	 * @brief Get the button released by gamepad id and button id.
+	 * 
+	 * @param joyID The joystick/gamepad id(0 for the first connected joy/pad).
+	 * @param buttonID The joy/pad button id ( 0 .. n buttons ).
+	 * 
+	 * @return true on success or false if not.
+	 */    
+	bool getJoyReleased(uint8_t joyID, uint8_t buttonID);
     
-	bool getJoyReleased(int joyID, uint8_t buttonID);
-    
-	bool getJoyHold(int joyID, uint8_t buttonID);
+	/** bool getJoyHold ( uint8_t joyID, uint8_t buttonID )
+	 * 
+	 * @brief Get the button holded by gamepad id and button id.
+	 * 
+	 * @param joyID The joystick/gamepad id(0 for the first connected joy/pad).
+	 * @param buttonID The joy/pad button id ( 0 .. n buttons ).
+	 * 
+	 * @return true on success or false if not.
+	 */
+	bool getJoyHold(uint8_t joyID, uint8_t buttonID);
 	
-	int16_t getAxisMove(int joyID, uint8_t axis);
+	/** int16_t getAxisMove ( uint8_t joyID, uint8_t axis )
+	 * 
+	 * @brief Get the axis value ( -32,768 to 32-767 )
+	 * 
+	 * @param joyID The joystick/gamepad id(0 for the first connected joy/pad).
+	 * @param axis The axis ( 0 for the first axis .. n ).
+	 * 
+	 * @return The amount of motion.
+	 */
+	int16_t getAxisMove(uint8_t joyID, uint8_t axis);
 	
 private:
 
+	//run the setup
 	void initializeJoys();
 
+	//free memory
 	void finalizeJoys();
 
 	std::vector<SDL_Joystick*> m_joysticks;
@@ -62,5 +123,5 @@ private:
 	
 	std::vector<std::vector<int32_t>> m_joyAxis; 
 	
-	bool m_bOnce;
+	bool m_bOnce;//used to check single press events.
 };

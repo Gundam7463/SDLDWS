@@ -41,6 +41,19 @@ VectorInt2D& VectorInt2D::operator+=(const VectorInt2D& v) {
     return *this;
 }
 
+VectorInt2D VectorInt2D::operator-(const VectorInt2D& v) {
+	m_x -= v.m_x;
+	m_y -= v.m_y;
+	
+	return *this;
+}
+VectorInt2D& VectorInt2D::operator-=(const VectorInt2D& v) {
+	m_x -= v.m_x;
+	m_y -= v.m_y;
+	
+	return *this;
+}
+
 VectorInt2D& VectorInt2D::operator*(int32_t scalar) {
     m_x *= scalar;
     m_y *= scalar;
@@ -71,6 +84,19 @@ VectorFloat2D& VectorFloat2D::operator+=(const VectorFloat2D& v) {
     m_y += v.m_y;
     
     return *this;
+}
+
+VectorFloat2D VectorFloat2D::operator-(const VectorFloat2D& v) {
+	m_x -= v.m_x;
+	m_y -= v.m_y;
+	
+	return *this;
+}
+VectorFloat2D& VectorFloat2D::operator-=(const VectorFloat2D& v) {
+	m_x -= v.m_x;
+	m_y -= v.m_y;
+	
+	return *this;
 }
 
 VectorFloat2D& VectorFloat2D::operator*(float scalar) {

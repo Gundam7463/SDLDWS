@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
 }
 
 void sdlInit() {
-    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK);
     TTF_Init();
     IMG_Init(IMG_INIT_PNG);
 }

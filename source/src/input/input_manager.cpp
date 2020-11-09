@@ -26,15 +26,19 @@
 
 
 
+void InputManager::finalize() {
+	delete m_gamepad;
+	m_gamepad = 0;
+}
 void InputManager::clearFrame() {
     m_keyboard.clearFrame();
 	m_mouse.clearFrame();
-	m_gamepad.clearFrame();
+	m_gamepad->clearFrame();
 }
 void InputManager::updateInput(SDL_Event &ev) {
     m_keyboard.updateInput(ev);
 	m_mouse.updateInput(ev);
-	m_gamepad.updateInput(ev);
+	m_gamepad->updateInput(ev);
 }
 void InputManager::createCursor(const char *path, int hot_x, int hot_y) {
 	m_mouse.createCursor(path, hot_x, hot_y);
@@ -61,14 +65,18 @@ void InputManager::getMousePosition(int *x, int *y) {
 	m_mouse.getPosition(x, y);
 }
 bool InputManager::getJoyPressed(int joyID, uint8_t buttonID) {
-	return m_gamepad.getJoyPressed(joyID, buttonID);
+	return m_gamepad->getJoyPressed(joyID, buttonID);
 }
 bool InputManager::getJoyReleased(int joyID, uint8_t buttonID) {
-	return m_gamepad.getJoyReleased(joyID, buttonID);
+	return m_gamepad->getJoyReleased(joyID, buttonID);
 }
 bool InputManager::getJoyHold(int joyID, uint8_t buttonID) {
-	return m_gamepad.getJoyHold(joyID, buttonID);
+	return m_gamepad->getJoyHold(joyID, buttonID);
 }
 int16_t InputManager::getJoyAxisMove(int joyID, uint8_t axis) {
-	return m_gamepad.getAxisMove(joyID, axis);
+	return m_gamepad->getAxisMove(joyID, axis);
+}
+
+InputManager::InputManager() {
+	m_gamepad = new Gamepad();
 }

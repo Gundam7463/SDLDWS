@@ -45,7 +45,7 @@ public:
 	//virtual const std::string getType() const { return "TileLayer"; }
 	
 private:
-	std::vector<Tile*> m_tiles;
+	std::vector<Tile> m_tiles;
 	std::vector<int32_t> m_gids;
 	
 	void setGids(const std::string& strGids);
