@@ -57,7 +57,7 @@ bool Game::initialize() {
 	
 	if (!m_screenManager.loadScreenFiles())
 	{
-		SDL_Log("Cannot read list-screens.xml file\n");
+		SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION, "Cannot read list-screens.xml file\n");
 		return false;
 	}
 	m_screenManager.setScreen("PlayScreen");

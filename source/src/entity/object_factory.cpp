@@ -42,7 +42,8 @@ void ObjectFactory::registerObject(const std::string &_type, FactoryContainer *_
 	{
 		m_container[_type] = _container;
 	} else {
-		SDL_Log("ObjectFactory: this container is already registered!\n");
+		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "ObjectFactory: this container is already registered!\n");
+		delete _container;
 	}
 }
 Entity *ObjectFactory::createObject(const std::string &_type, const Loader& loader) {
@@ -52,7 +53,8 @@ Entity *ObjectFactory::createObject(const std::string &_type, const Loader& load
 	{
 		return m_container[_type]->create(loader);
 	} else {
-		SDL_Log("ObjectFactory: cannot find container\n");
-		return nullptr;	
+		SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "ObjectFactory: cannot find container\n");
 	}
+	
+	return nullptr;
 }

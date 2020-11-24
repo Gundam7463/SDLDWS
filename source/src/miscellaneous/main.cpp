@@ -35,13 +35,18 @@ void sdlQuit();
 void printVersions();
 
 int main(int argc, char **argv) {
+	//SDL_LOG_PRIORITY_INFO
+	//SDL_LOG_PRIORITY_WARN
+	//SDL_LOG_PRIORITY_CRITICAL
+	SDL_LogSetAllPriority(SDL_LOG_PRIORITY_INFO);
+	
     sdlInit();
 	printVersions();
 
     Game::instance().run();
    
     sdlQuit();
-    SDL_Log("SDL Last Error: %s\n", SDL_GetError()); 
+    SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "SDL Last Error: %s\n", SDL_GetError()); 
 }
 
 void sdlInit() {
@@ -61,8 +66,9 @@ void printVersions() {
 	
 	SDL_VERSION(&compiled);
 	SDL_GetVersion(&linked);
-	printf("We compiled against SDL version %d.%d.%d ...\n",
+	
+	SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "We compiled against SDL version %d.%d.%d ...\n",
 		compiled.major, compiled.minor, compiled.patch);
-	printf("But we are linking against SDL version %d.%d.%d.\n",
+	SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "But we are linking against SDL version %d.%d.%d.\n",
 		linked.major, linked.minor, linked.patch);
 }

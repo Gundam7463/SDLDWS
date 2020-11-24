@@ -102,7 +102,7 @@ bool Level::loadLevel(const std::string& levelName) {
 	if (m_levelFilesIt != m_levelFiles.end())
 	{
 		tinyxml2::XMLElement* root = m_levelFilesIt->second->FirstChildElement();
-		SDL_Log("\nLoading Level Info...\n");
+		SDL_Log("Loading Level Info...\n");
 		
 		if (std::string(root->Value()) == "map")
 		{
@@ -114,7 +114,7 @@ bool Level::loadLevel(const std::string& levelName) {
 			m_levelInfo.m_level_tile_height_px = root->IntAttribute("tileheight");
 			
 			SDL_Log("Level Info successfull loaded.\n");
-			SDL_Log("\nLoading Level sprite's layer's...\n");
+			SDL_Log("Loading Level sprite's layer's...\n");
 			
 			for (tinyxml2::XMLElement* objectgroup = root->FirstChildElement(); objectgroup; 
 					objectgroup = objectgroup->NextSiblingElement())
@@ -134,7 +134,7 @@ bool Level::loadLevel(const std::string& levelName) {
 			}
 			
 			SDL_Log("Level sprite's layer's successfull loaded.\n");
-			SDL_Log("\nLoading Level tile's layer's...\n");
+			SDL_Log("Loading Level tile's layer's...\n");
 			
 			for (tinyxml2::XMLElement* map = root->FirstChildElement(); map;
 				map = map->NextSiblingElement())
@@ -168,7 +168,7 @@ bool Level::loadLevel(const std::string& levelName) {
 		}
 	}
 	else {
-		SDL_Log("Error on loading level: %s\n", levelName.c_str());
+		SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Error on loading level: %s\n", levelName.c_str());
 		unload();
 		return false;
 	}

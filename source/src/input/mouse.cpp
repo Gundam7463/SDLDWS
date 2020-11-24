@@ -56,7 +56,7 @@ void Mouse::createCursor(const char *path, int hot_x, int hot_y) {
 			if (!(m_cursor = SDL_CreateColorCursor(m_mouseSurface, hot_x, hot_y)))
 			{
 				SDL_FreeSurface(m_mouseSurface);
-				fprintf(stdout, "WARN: Cannot create cursor\n");
+				SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Mouse: Cannot create custom cursor\n");
 			}
 			else
 			{

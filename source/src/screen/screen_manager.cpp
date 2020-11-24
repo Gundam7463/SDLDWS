@@ -96,7 +96,7 @@ void ScreenManager::setScreen(const std::string& name) {
 	
 	if (m_screensFilesIt == m_screensFiles.end())
 	{
-		SDL_Log("Error can't find screen: %s, try rename it in the list-screens.xml to SplashScreen, MainMenuScreen, PlayScreen\n", name.c_str());
+		SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "ScreenManager: can't find screen %s, try rename it in the list-screens.xml to SplashScreen, MainMenuScreen, PlayScreen\n", name.c_str());
 	}
 	else {
 	
@@ -104,11 +104,14 @@ void ScreenManager::setScreen(const std::string& name) {
 		if (m_screensIt != m_screens.end())
 		{
 			m_currentScreen = name;
-			SDL_Log("Current screen: %s\n", name.c_str());
+			SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Current screen: %s\n", name.c_str());
 		}
-		else if (!loadScreen(name))
+		else 
 		{
-			SDL_Log("Error on load screen: %s\n", name.c_str());
+			if (!loadScreen(name))
+			{
+				SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Error on load screen: %s\n", name.c_str());
+			}
 		}
 	}
 }
@@ -160,7 +163,7 @@ static Screen* getScreen(const std::string& name) {
 		screen = new PlayScreen();
 	}
 	else {
-		SDL_Log("Screen: screen name invalid, try rename it on your source code set screen to: SplashScreen, MainMenuScreen, PlayScreen");
+		SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Screen: screen name invalid, try rename it on your source code set screen to: SplashScreen, MainMenuScreen, PlayScreen");
 	}
 	
 	return screen;
@@ -176,7 +179,7 @@ bool ScreenManager::loadScreen(const std::string& name) {
 		tinyxml2::XMLElement *element = m_screensFiles[name]->FirstChildElement();
 		if (!(m_screens[name]->load(element)))
 		{
-			SDL_Log("Cannot parser screen!\n");
+			SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Cannot parser screen!\n");
 			return false;
 		}
 		

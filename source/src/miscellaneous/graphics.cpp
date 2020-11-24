@@ -188,6 +188,6 @@ Graphics::Graphics() {
 
     if (!m_pWindow || !m_pRenderer)
     {
-        fprintf(stdout, "Error on create window, renderer: Graphics constructor\n");
+        SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION, "Error on create window or renderer: Graphics constructor\n");
     }
 }
