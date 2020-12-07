@@ -23,8 +23,8 @@
 */
 
 #include "../../include/screen/screen.h"
-#include "../../include/miscellaneous/loader.h"
-#include "../../include/miscellaneous/game.h"
+#include "../../include/entity/entity_template.h"
+#include "../../include/miscellaneous/application.h"
 #include "../../include/miscellaneous/graphics.h"
  
 
@@ -43,17 +43,17 @@ bool Screen::load(tinyxml2::XMLElement *element) {
 	}
 	for (tinyxml2::XMLElement *e = element->FirstChildElement(); e; e = e->NextSiblingElement())
 	{
-		if (std::string(e->Value()) == "loader")
+		if (std::string(e->Value()) == "template")
 		{
-			Loader loader;
+			EntityTemplate entityTemplate;
 			
-			if (!loader.load(e->Attribute("path")))
+			if (!entityTemplate.load(e->Attribute("path")))
 			{
 				return false;
 			}
 			
-			Entity *entity = Game::instance().getFactory().createObject(e->Attribute("obj"),
-				loader);
+			Entity *entity = Application::instance().getFactory().createObject(e->Attribute("obj"),
+				entityTemplate);
 			if (entity)
 			{
 				m_entities.push_back(entity);
@@ -66,7 +66,7 @@ bool Screen::load(tinyxml2::XMLElement *element) {
 	
 	int ww, wh;
 	Graphics::instance().getWindowSize(&ww, &wh);
-	Game::instance().getCamera().init(ww, wh);
+	Application::instance().getCamera().init(ww, wh);
 	
 	return true;
 }

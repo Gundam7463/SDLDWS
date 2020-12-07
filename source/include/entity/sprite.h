@@ -39,7 +39,7 @@ class Sprite : public Entity {
 public:
     friend class Animation;
     
-    virtual bool load(const Loader& loader);
+    virtual bool load(EntityTemplate& entityTemplate);
     virtual void unload();
     
     virtual void update(int32_t elapsedTime);
@@ -55,10 +55,10 @@ protected:
 
 class SpriteFactoryContainer : public FactoryContainer {
 public:
-	virtual Entity* create(const Loader& loader) {
+	virtual Entity* create(EntityTemplate& entityTemplate) {
 		
 		Sprite *_instance = new Sprite();
-		if (!_instance->load(loader))
+		if (!_instance->load(entityTemplate))
 		{
 			delete _instance;
 			return nullptr;

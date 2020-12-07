@@ -26,7 +26,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
-#include "../../include/miscellaneous/game.h"
+#include "../../include/miscellaneous/application.h"
 
 
 void sdlInit();
@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
     sdlInit();
 	printVersions();
 
-    Game::instance().run();
+    Application::instance().run();
    
     sdlQuit();
     SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "SDL Last Error: %s\n", SDL_GetError()); 

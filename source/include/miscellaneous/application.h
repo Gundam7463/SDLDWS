@@ -40,14 +40,14 @@
 #include "../entity/object_factory.h"
 
 
-class Game {
+class Application {
 public:
 	//Nothing for now.
-    ~Game();
+    ~Application();
 	
 	//Singleton get method.
-    static Game& instance() {
-        static Game game;
+    static Application& instance() {
+        static Application game;
         return game;
     }
     
@@ -62,9 +62,10 @@ public:
 	ObjectFactory& getFactory() { return m_objectFactory; }
 	//Get the camera with the viewport reference
 	Camera& getCamera() { return m_camera; }
+	ScreenManager& getScreenManager() { return m_screenManager; }
 	
 private:
-    Game();
+    Application();
     
     /** bool initialize ( )
 	 * 

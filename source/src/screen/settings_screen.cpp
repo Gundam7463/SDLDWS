@@ -22,43 +22,21 @@
 	SOFTWARE.
 */
 
-/** The Object Factory class.
- * 
- * IS: The application object factory.
- * 
- * WHERE: Contained on Game object.
- * 
- * HOW WORKS: 
- * 		It can register new objects and create then.
- */
+#include "../../include/screen/settings_screen.h"
 
-#pragma once 
-
-#include <string>
-#include <map>
-#include "entity.h"
-
-
-/** This is the interface for new objects containers
- */
-class FactoryContainer {
-public:
-	virtual ~FactoryContainer() { }
-
-	virtual Entity* create(EntityTemplate& entityTemplate) = 0;
-};
-
-
-
-class ObjectFactory {
-public:
-	~ObjectFactory();
-
-	//simple register with _type which works like the name ID
-	void registerObject(const std::string &_type, FactoryContainer *_container);
-	Entity *createObject(const std::string &_type, EntityTemplate& entityTemplate);
+void SettingsScreen::unload() {
+	Screen::unload();
+}
+bool SettingsScreen::load(tinyxml2::XMLElement *element) {
 	
-private:
-	std::map<std::string, FactoryContainer*> m_container;
-	std::map<std::string, FactoryContainer*>::iterator m_containerIt;
-};
+	bool success = Screen::load(element);
+	
+	return success;
+}
+
+void SettingsScreen::update(int32_t elapsedTime) {
+	Screen::update(elapsedTime);
+}
+void SettingsScreen::draw() {
+	Screen::draw();
+}

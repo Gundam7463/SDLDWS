@@ -24,7 +24,7 @@
 
 #include "../../include/level/tile_layer.h"
 #include "../../include/level/level.h"
-#include "../../include/miscellaneous/game.h"
+#include "../../include/miscellaneous/application.h"
 #include "../../include/input/input_manager.h"
 
 
@@ -51,19 +51,19 @@ void TileLayer::update(int32_t elapsedTime) {
 	
 	if (InputManager::instance().getKeyHold(SDL_SCANCODE_LEFT))
 	{
-		Game::instance().getCamera().moveHorizontal(0.13f * elapsedTime);
+		Application::instance().getCamera().moveHorizontal(0.13f * elapsedTime);
 	}
 	if (InputManager::instance().getKeyHold(SDL_SCANCODE_RIGHT))
 	{
-		Game::instance().getCamera().moveHorizontal((-0.13f) * elapsedTime);
+		Application::instance().getCamera().moveHorizontal((-0.13f) * elapsedTime);
 	}
 	if (InputManager::instance().getKeyHold(SDL_SCANCODE_DOWN))
 	{
-		Game::instance().getCamera().moveVertical((-0.13f) * elapsedTime);
+		Application::instance().getCamera().moveVertical((-0.13f) * elapsedTime);
 	}
 	if (InputManager::instance().getKeyHold(SDL_SCANCODE_UP))
 	{
-		Game::instance().getCamera().moveVertical(0.13f * elapsedTime);
+		Application::instance().getCamera().moveVertical(0.13f * elapsedTime);
 	}
 }
 void TileLayer::draw(const LevelInfo& levelInfo) {
@@ -72,7 +72,7 @@ void TileLayer::draw(const LevelInfo& levelInfo) {
 	ww += levelInfo.m_level_tile_width_px;
 	wh += levelInfo.m_level_tile_height_px;
 	
-	VectorFloat2D camPos = Game::instance().getCamera().getPosition();
+	VectorFloat2D camPos = Application::instance().getCamera().getPosition();
 
 	const uint32_t startRowInput = camPos.getY() / levelInfo.m_level_tile_height_px < 0 ? -(camPos.getY() / levelInfo.m_level_tile_height_px) : camPos.getY() / levelInfo.m_level_tile_height_px;
 	const uint32_t startColumnInput = camPos.getX() / levelInfo.m_level_tile_width_px < 0 ? -(camPos.getX() / levelInfo.m_level_tile_width_px) : camPos.getX() / levelInfo.m_level_tile_width_px;

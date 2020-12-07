@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+
+<template obj="Button">
+  <position x="300.f" y="100.2f"/>
+  <size width="55" height="32"/>
+
+  
+  <button>
+  	<text value="play"/>
+  </button>
+</template>
+
+

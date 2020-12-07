@@ -46,12 +46,12 @@ void ObjectFactory::registerObject(const std::string &_type, FactoryContainer *_
 		delete _container;
 	}
 }
-Entity *ObjectFactory::createObject(const std::string &_type, const Loader& loader) {
+Entity *ObjectFactory::createObject(const std::string &_type, EntityTemplate& entityTemplate) {
 	m_containerIt = m_container.find(_type);
 	
 	if (m_containerIt != m_container.end())
 	{
-		return m_container[_type]->create(loader);
+		return m_container[_type]->create(entityTemplate);
 	} else {
 		SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "ObjectFactory: cannot find container\n");
 	}

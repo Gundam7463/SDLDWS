@@ -64,6 +64,7 @@ public:
     Animation(uint16_t frameWidth, uint16_t frameHeight, uint8_t row, 
 	  			uint8_t startColumn, uint8_t endColumn, int32_t frameDelay);
 
+	
 	/** void setTarget ( Sprite* sprite )
 	 * 
 	 * @brief Select the target to this animation work on.
@@ -82,10 +83,13 @@ public:
     
 	//render
     void draw();
+	
 private:
     
     Sprite* m_pTarget;//target pointer reference.
     
+public:
+
     uint16_t m_frameWidth;
     uint16_t m_frameHeight;
     

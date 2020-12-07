@@ -27,6 +27,8 @@
 #include "../../include/screen/splash_screen.h"
 #include "../../include/screen/play_screen.h"
 #include "../../include/screen/main_menu_screen.h"
+#include "../../include/screen/settings_screen.h"
+#include "../../include/screen/pause_screen.h"
 
 extern std::string gRootDir;
 
@@ -161,6 +163,14 @@ static Screen* getScreen(const std::string& name) {
 	else if (name == "PlayScreen")
 	{
 		screen = new PlayScreen();
+	}
+	else if (name == "SettingsScreen")
+	{
+		screen = new SettingsScreen();
+	}
+	else if (name == "PauseScreen")
+	{
+		screen = new PauseScreen();
 	}
 	else {
 		SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Screen: screen name invalid, try rename it on your source code set screen to: SplashScreen, MainMenuScreen, PlayScreen");

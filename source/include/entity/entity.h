@@ -37,22 +37,22 @@
 #include <string>
 #include <SDL2/SDL_rect.h>
 #include "../miscellaneous/vector_2d.h"
-#include "../miscellaneous/loader.h"
+#include "../entity/entity_template.h"
 
 
 class Entity {
 public:
 	virtual ~Entity() { }//get rid of some warnings
 
-    /** virtual bool load ( const Loader& loader ) = 0;
+    /** virtual bool load ( EntityTemplate& entityTemplate ) = 0;
 	 * 
 	 * @brief Load and initialize the entity.
 	 * 
-	 * @param loader the loader reference.
+	 * @param entityTemplate the entityTemplate reference.
 	 * 
 	 * @return true on success or, false in case of errors.
 	 */
-    virtual bool load(const Loader& loader) = 0;
+    virtual bool load(EntityTemplate& entityTemplate) = 0;
 	
     /** virtual void unload ( ) = 0;
 	 * 

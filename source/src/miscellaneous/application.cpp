@@ -23,15 +23,16 @@
 */
 
 #include <SDL2/SDL.h>
-#include "../../include/miscellaneous/game.h"
+#include "../../include/miscellaneous/application.h"
 #include "../../include/miscellaneous/graphics.h"
 #include "../../include/input/input_manager.h"
 #include "../../include/entity/sprite.h"
+#include "../../include/entity/button.h"
 
 
-Game::~Game() {
+Application::~Application() {
 }
-void Game::run() {
+void Application::run() {
     m_bRunning = true;
     
     if (initialize())
@@ -41,11 +42,12 @@ void Game::run() {
         finalize();
     }
 }
-Game::Game() : m_bRunning(false) {
+Application::Application() : m_bRunning(false) {
 }
-bool Game::initialize() {
+bool Application::initialize() {
     Graphics::instance().loadFont("Barlow-Light.ttf", "barlow16", 16);
     Graphics::instance().loadFont("Barlow-Light.ttf", "barlow20", 20);
+    Graphics::instance().loadFont("Barlow-Light.ttf", "barlow32", 32);
 	
 	int ww, wh;
 	Graphics::instance().getWindowSize(&ww, &wh);
@@ -60,18 +62,18 @@ bool Game::initialize() {
 		SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION, "Cannot read list-screens.xml file\n");
 		return false;
 	}
-	m_screenManager.setScreen("PlayScreen");
+	m_screenManager.setScreen("SplashScreen");
 
     return true;
 }
-void Game::finalize() {
+void Application::finalize() {
 	InputManager::instance().finalize();
 	
 	m_screenManager.unload();
 	m_timer.finalize();
     Graphics::instance().unload();
 }
-void Game::mainLoop() {
+void Application::mainLoop() {
     SDL_Event event;
 		
     while(m_bRunning)
@@ -104,18 +106,19 @@ void Game::mainLoop() {
         }
     }
 }
-void Game::update(int32_t elapsedTime) {
+void Application::update(int32_t elapsedTime) {
 	//Update the SDL viewport
 	m_screenManager.update(elapsedTime);
 	m_camera.updateViewport();
 }
-void Game::draw() {
+void Application::draw() {
     Graphics::instance().clearColor();
 	m_screenManager.draw();
 	m_timer.drawFpsCount(VectorFloat2D(200, 0) - m_camera.getPosition());
     Graphics::instance().renderPresent();
 }
 
-void Game::factoryRegister() {
+void Application::factoryRegister() {
 	m_objectFactory.registerObject("Sprite", new SpriteFactoryContainer());
+	m_objectFactory.registerObject("Button", new ButtonFactoryContainer());
 }

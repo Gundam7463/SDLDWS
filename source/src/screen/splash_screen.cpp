@@ -23,6 +23,7 @@
 */
 
 #include "../../include/screen/splash_screen.h"
+#include "../../include/miscellaneous/application.h"
 
 void SplashScreen::unload() {
 	Screen::unload();
@@ -33,6 +34,12 @@ bool SplashScreen::load(tinyxml2::XMLElement *element) {
 
 void SplashScreen::update(int32_t elapsedTime) {
 	Screen::update(elapsedTime);
+	m_timeToChange += elapsedTime;
+	if (m_timeToChange >= 4000)
+	{
+		Application::instance().getScreenManager().setScreen("MainMenuScreen");
+		m_timeToChange = 0;
+	}
 }
 void SplashScreen::draw() {
 	Screen::draw();

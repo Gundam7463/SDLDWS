@@ -35,6 +35,7 @@ bool PlayScreen::load(tinyxml2::XMLElement *element) {
 	
 	
 	m_level.loadLevel("Tutorial");
+	
 	return success;
 }
 

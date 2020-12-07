@@ -23,22 +23,23 @@
 */
 
 #include "../../include/miscellaneous/tinyxml2.h"
-#include "../../include/miscellaneous/loader.h"
+#include "../../include/entity/entity_template.h"
 #include "../../include/miscellaneous/animation.h"
 
 extern std::string gRootDir;
 
 
 
-Loader::~Loader() {
-	for (std::map<std::string, Animation*>::iterator it = m_animations.begin(); 
-	it != m_animations.end(); it++)
+
+EntityTemplate::~EntityTemplate() {
+	for (std::map<std::string, Animation*>::iterator it = m_spriteTemplateInfo.m_animations.begin(); 
+	it != m_spriteTemplateInfo.m_animations.end(); it++)
 	{
 		delete it->second;
 	}
-	m_animations.clear();
+	m_spriteTemplateInfo.m_animations.clear();
 }
-bool Loader::load(const std::string& path) {
+bool EntityTemplate::load(const std::string& path) {
     std::string finalPath = gRootDir;
     finalPath += "/obj/";
     finalPath += path;
@@ -53,28 +54,30 @@ bool Loader::load(const std::string& path) {
     }
     
     tinyxml2::XMLElement *root = doc.FirstChildElement();
-	if (std::string(root->Value()) == "loader")
+	if (std::string(root->Value()) == "template")
 	{
 		m_objectName = root->Attribute("obj");
 		
 		for (tinyxml2::XMLElement *element = root->FirstChildElement(); element; element = element->NextSiblingElement())
 		{
+			//Entity loader
 			if (std::string(element->Value()) == "position")
 			{
-				m_position.setX(element->FloatAttribute("x"));
-				m_position.setY(element->FloatAttribute("y"));                
+				m_entityTemplateInfo.m_position.setX(element->FloatAttribute("x"));
+				m_entityTemplateInfo.m_position.setY(element->FloatAttribute("y"));                
 			}
 			if (std::string(element->Value()) == "size")
 			{
-				m_size.setX(element->IntAttribute("width"));
-				m_size.setY(element->IntAttribute("height"));
-			}
-			if (std::string(element->Value()) == "img")
-			{
-				m_imgPath = element->Attribute("path");
-				m_imgName = element->Attribute("nameID");
+				m_entityTemplateInfo.m_size.setX(element->IntAttribute("width"));
+				m_entityTemplateInfo.m_size.setY(element->IntAttribute("height"));
 			}
 			
+			//Sprite loader
+			if (std::string(element->Value()) == "img")
+			{
+				m_spriteTemplateInfo.m_imgPath = element->Attribute("path");
+				m_spriteTemplateInfo.m_imgName = element->Attribute("nameID");
+			}
 			if (std::string(element->Value()) == "animation")
 			{
 				for (tinyxml2::XMLElement *anim = element->FirstChildElement(); 
@@ -92,7 +95,20 @@ bool Loader::load(const std::string& path) {
 					
 					Animation *newAnim = new Animation(frameWidth, frameHeight, row, startColumn,
 					endColumn, frameDelay);
-					m_animations[name] = newAnim;				
+					m_spriteTemplateInfo.m_animations[name] = newAnim;				
+				}
+			}
+			
+			//Button loader
+			if (std::string(element->Value()) == "button")
+			{
+				for (tinyxml2::XMLElement* button = element->FirstChildElement(); button;
+				button = button->NextSiblingElement())
+				{
+					if (std::string(button->Value()) == "text")
+					{
+						m_buttonTemplateInfo.m_text = button->Attribute("value");
+					}
 				}
 			}
 		}

@@ -24,39 +24,35 @@
 
 #pragma once 
 
-#include <map>
-#include <SDL2/SDL_rect.h>
-#include "../miscellaneous/vector_2d.h"
+#include "sprite.h"
 
 
-class Animation;
-
-class Loader {
+class Button : public Sprite {
 public:
-
-	~Loader();
-	
-    bool load(const std::string& path);
     
-	void setPosition(VectorFloat2D position) {
-		m_position = position;
-	}
-	
-    const VectorFloat2D& getPosition() const { return m_position; }
-    const VectorInt2D& getSize() const { return m_size; }
-    const std::string& getImgPath() const { return m_imgPath; }
-    const std::string& getImgName() const { return m_imgName; }
-	
-	std::map<std::string, Animation*> getAnimations() const { return m_animations; }
-	const std::string& getObjectName() const { return m_objectName; }
+    virtual bool load(EntityTemplate& entityTemplate);
+    virtual void unload();
     
+    virtual void update(int32_t elapsedTime);
+    virtual void draw();
+	
 private:
-    VectorFloat2D m_position;
-    VectorInt2D m_size;
-    
-    std::string m_imgPath;
-    std::string m_imgName;
-    
-    std::map<std::string, Animation*> m_animations;
-	std::string m_objectName;
+	std::string m_text;
+	bool m_bHighlighted;
+};
+
+
+class ButtonFactoryContainer : public FactoryContainer {
+public:
+	virtual Entity* create(EntityTemplate& entityTemplate) {
+		
+		Button *_instance = new Button();
+		if (!_instance->load(entityTemplate))
+		{
+			delete _instance;
+			return nullptr;
+		}
+		
+		return _instance;
+	}
 };

@@ -23,8 +23,8 @@
 */
 
 #include "../../include/level/entity_layer.h"
-#include "../../include/miscellaneous/loader.h"
-#include "../../include/miscellaneous/game.h"
+#include "../../include/entity/entity_template.h"
+#include "../../include/miscellaneous/application.h"
 
 
 
@@ -36,23 +36,23 @@ bool EntityLayer::load(tinyxml2::XMLElement* objectgroup) {
 		if (std::string(object->Value()) == "object")
 		{
 			Entity* entity = nullptr;
-			Loader loader;
+			EntityTemplate entityTemplate;
 
 			tinyxml2::XMLElement* property = object->FirstChildElement()->FirstChildElement();
 			
 			if (std::string(property->Value()) == "property")
 			{
-				loader.load(property->Attribute("value"));
+				entityTemplate.load(property->Attribute("value"));
 				/** If entity is on tiled editor positive for axis x and y, accept the tiled editor
 				 * x,y coordinate values.
 				 */
 				if (object->FloatAttribute("x") >= 0.f && object->FloatAttribute("y") >= 0.f)
 				{
 					VectorFloat2D newPosition(object->FloatAttribute("x"), object->FloatAttribute("y"));
-					loader.setPosition(newPosition);
+					entityTemplate.getEntityTemplateInfo().m_position = newPosition;
 				}
 				
-				entity = Game::instance().getFactory().createObject(loader.getObjectName(), loader);
+				entity = Application::instance().getFactory().createObject(entityTemplate.getObjectName(), entityTemplate);
 				if (entity)
 				{
 					m_entities.push_back(entity);

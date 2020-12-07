@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <screens>
-	<screen name="SplashScreen" path="splash.xml"/>
-	<screen name="MainMenuScreen" path="main-menu.xml"/>
 	<screen name="PlayScreen" path="play.xml"/>
+	<screen name="MainMenuScreen" path="main-menu.xml"/>
+	<screen name="SplashScreen" path="splash.xml"/>
+	<screen name="SettingsScreen" path="settings.xml"/>
+	<screen name="PauseScreen" path="pause.xml"/>
 </screens>

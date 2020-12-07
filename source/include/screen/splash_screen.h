@@ -36,4 +36,7 @@ public:
 
 	virtual void update(int32_t elapsedTime);
 	virtual void draw();
+	
+private:
+	int32_t m_timeToChange;
 };

@@ -22,43 +22,17 @@
 	SOFTWARE.
 */
 
-/** The Object Factory class.
- * 
- * IS: The application object factory.
- * 
- * WHERE: Contained on Game object.
- * 
- * HOW WORKS: 
- * 		It can register new objects and create then.
- */
+#pragma once
 
-#pragma once 
-
-#include <string>
-#include <map>
-#include "entity.h"
+#include "screen.h"
 
 
-/** This is the interface for new objects containers
- */
-class FactoryContainer {
+class PauseScreen : public Screen {
 public:
-	virtual ~FactoryContainer() { }
+	virtual void unload();
+	virtual bool load(tinyxml2::XMLElement *element);
 
-	virtual Entity* create(EntityTemplate& entityTemplate) = 0;
+	virtual void update(int32_t elapsedTime);
+	virtual void draw();
 };
 
-
-
-class ObjectFactory {
-public:
-	~ObjectFactory();
-
-	//simple register with _type which works like the name ID
-	void registerObject(const std::string &_type, FactoryContainer *_container);
-	Entity *createObject(const std::string &_type, EntityTemplate& entityTemplate);
-	
-private:
-	std::map<std::string, FactoryContainer*> m_container;
-	std::map<std::string, FactoryContainer*>::iterator m_containerIt;
-};

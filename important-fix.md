@@ -1,3 +1,7 @@
+# =========== dec/06/2020
+## sprite.cpp
+### update | draw
+	Default string for "none" animation: __NONE to ___NONE
 # =========== nov/09/2020
 ## main.cpp:
 ### sdlInit:

@@ -94,15 +94,15 @@ public:
 	 */
     void getWindowSize(int* w, int* h);
     
-    /** void setRenderColor ( uint8_t r, uint8_t g, uint8_t b )
+    /** void setRenderDefaultColor ( SDL_Color color )
 	 * 
-	 * @brief Set current clear color from the renderer.
+	 * @brief Set current default clear color to the renderer.
 	 * 
-	 * @param r Red value.
-	 * @param g Green value.
-	 * @param b Blue.
+	 * @param color the SDL_Color struct.
 	 */
-    void setRenderColor(uint8_t r, uint8_t g, uint8_t b);
+    void setRenderDefaultColor(SDL_Color color);
+	
+	void setRenderDrawColor(uint8_t r=0, uint8_t g=0, uint8_t b=0, uint8_t a=0xFF);
     
     /** void setViewport ( const SDL_Rect* rect )
 	 * 
@@ -124,6 +124,10 @@ public:
 	 */
     void renderPresent();
     
+	void drawFillRect(const SDL_Rect* rect, uint8_t r=200, uint8_t g=0, uint8_t b=0, uint8_t a=0xFF);
+	void drawRect(const SDL_Rect* rect, uint8_t r=200, uint8_t g=0, uint8_t b=0, uint8_t a=0xFF);
+	void drawRectThick(SDL_Rect* rect, uint8_t r=200, uint8_t g=0, uint8_t b=0, uint8_t a=0xFF, int32_t thick=1);
+	
     /** void drawTexture ( const std::string& index, const SDL_Rect* srcRect=nullptr, 
 		const SDL_Rect* dstRect=nullptr, const double angle=0.0, const SDL_Point* center=nullptr, 
 			const SDL_RendererFlip flip=SDL_FLIP_NONE )
@@ -193,6 +197,8 @@ public:
     
 private:
     Graphics();//constructor that set default values.
+	
+	void resetRenderColor();
 
     SDL_Window *m_pWindow;
     SDL_Renderer *m_pRenderer;
@@ -202,4 +208,6 @@ private:
     
     std::map<std::string, TTF_Font*> m_fontList;//The list of all font loaded by loadFont.
     std::map<std::string, TTF_Font*>::iterator m_fontListIt;
+	
+	SDL_Color m_defaultRenderColor;
 };

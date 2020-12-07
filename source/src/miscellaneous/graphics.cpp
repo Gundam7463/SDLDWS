@@ -110,8 +110,11 @@ void Graphics::loadFont(const std::string& path, const std::string& index, uint8
 void Graphics::getWindowSize(int* w, int* h) {
     SDL_GetWindowSize(m_pWindow, w, h);
 }
-void Graphics::setRenderColor(Uint8 r, Uint8 g, Uint8 b) {
-    SDL_SetRenderDrawColor(m_pRenderer, r, g, b, 0xFF);
+void Graphics::setRenderDefaultColor(SDL_Color color) {
+	m_defaultRenderColor = color;
+}
+void Graphics::setRenderDrawColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+	SDL_SetRenderDrawColor(m_pRenderer, r, g, b, a);
 }
 void Graphics::setViewport(const SDL_Rect* rect) {
     SDL_RenderSetViewport(m_pRenderer, rect);
@@ -121,6 +124,33 @@ void Graphics::clearColor() {
 }
 void Graphics::renderPresent() {
     SDL_RenderPresent(m_pRenderer);
+}
+void Graphics::drawFillRect(const SDL_Rect*rect, uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+	
+	setRenderDrawColor(r, g, b, a);
+	SDL_RenderFillRect(m_pRenderer, rect);
+	resetRenderColor();
+}
+void Graphics::drawRect(const SDL_Rect*rect, uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+	
+	setRenderDrawColor(r, g, b, a);
+	SDL_RenderDrawRect(m_pRenderer, rect);
+	resetRenderColor();
+}
+void Graphics::drawRectThick(SDL_Rect* rect, uint8_t r, uint8_t g, uint8_t b, uint8_t a, int32_t thick) {
+	if (thick <= 0)
+	{
+		return ;
+	}
+	rect->x ++;
+	rect->y ++;
+	rect->w -= 2;
+	rect->h -= 2;
+	
+	setRenderDrawColor(r, g, b, a);
+	SDL_RenderDrawRect(m_pRenderer, rect);
+	resetRenderColor();
+	drawRectThick(rect, r, g, b, a, thick - 1);
 }
 void Graphics::drawTexture(const std::string& index, const SDL_Rect* srcRect, const SDL_Rect* dstRect, const double angle,
     const SDL_Point* center, const SDL_RendererFlip flip) {
@@ -190,4 +220,10 @@ Graphics::Graphics() {
     {
         SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION, "Error on create window or renderer: Graphics constructor\n");
     }
+	SDL_Color black = { 0, 0, 0, 0xFF };
+	setRenderDefaultColor(black);
+}
+void Graphics::resetRenderColor() {
+    SDL_SetRenderDrawColor(m_pRenderer, m_defaultRenderColor.r, m_defaultRenderColor.g,
+	m_defaultRenderColor.b, m_defaultRenderColor.a);
 }

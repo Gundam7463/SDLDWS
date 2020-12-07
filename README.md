@@ -14,6 +14,8 @@ directory, set the env to compile SDL and compile. In the future when the first 
 was released i will put some pre-compile platforms links to download here.
 
 ## Installation
+### For development
+
 1- Copy the folder res/ and source/ to the folder of your c++ project.
 2- Install the SDL2, SDL2_image, SDL2_ttf development lib's to you environment IDE.
 3- Include the source/ folder to the project.

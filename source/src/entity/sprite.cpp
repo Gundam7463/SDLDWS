@@ -23,24 +23,30 @@
 */
 
 #include "../../include/entity/sprite.h"
-#include "../../include/miscellaneous/loader.h"
+#include "../../include/entity/entity_template.h"
 #include "../../include/miscellaneous/graphics.h"
 #include "../../include/miscellaneous/animation.h"
 
 
 
-bool Sprite::load(const Loader& loader) {
+bool Sprite::load(EntityTemplate& entityTemplate) {
     m_currentAnimation = "___NONE";
 	
-	m_position = loader.getPosition();
-	m_size = loader.getSize();
+	EntityTemplateInfo& _entity = entityTemplate.getEntityTemplateInfo();
+	SpriteTemplateInfo& _sprite = entityTemplate.getSpriteTemplateInfo();
 	
-	Graphics::instance().loadTexture(loader.getImgPath(),
-		loader.getImgName());
+	m_position = _entity.m_position;
+	m_size = _entity.m_size;
+	
+	if (_sprite.m_imgPath != "___NONE" && _sprite.m_imgName != "___NONE")
+	{
+		Graphics::instance().loadTexture(_sprite.m_imgPath,
+			_sprite.m_imgName);
+	}
 
-	m_textureName = loader.getImgName();
+	m_textureName = _sprite.m_imgName;
 	
-	std::map<std::string, Animation*> animCopyRef = loader.getAnimations();
+	std::map<std::string, Animation*> animCopyRef = _sprite.m_animations;
 	for (m_animationsIt = animCopyRef.begin(); m_animationsIt != animCopyRef.end();
 	m_animationsIt++)
 	{
@@ -64,13 +70,13 @@ void Sprite::unload() {
 void Sprite::update(int32_t elapsedTime) {
     m_position += VectorFloat2D(0.f * elapsedTime, 0.f);
 	
-	if (m_currentAnimation != "__NONE")
+	if (m_currentAnimation != "___NONE")
 	{
 		m_animations[m_currentAnimation]->update(elapsedTime);
 	}
 }
 void Sprite::draw() {
-	if (m_currentAnimation != "__NONE")
+	if (m_currentAnimation != "___NONE")
 	{
 		m_animations[m_currentAnimation]->draw();
 	}

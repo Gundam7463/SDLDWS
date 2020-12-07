@@ -1,4 +1,6 @@
 <?xml version="1.0"?>
-<screen name="splash">
-	<loader obj="Sprite" path="bg/bg1.xml"/>
+<screen>
+	<template obj="Button" path="buttons/play-button.xml"/>
+	<template obj="Button" path="buttons/settings-button.xml"/>
+	<template obj="Button" path="buttons/exit-button.xml"/>
 </screen>

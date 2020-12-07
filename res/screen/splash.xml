@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
-<screen name="splash">
-	<loader obj="Sprite" path="bg/bg0.xml"/>
+<screen>
+	<template obj="Sprite" path="bg/bg0.xml"/>
 </screen>
