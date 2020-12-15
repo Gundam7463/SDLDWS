@@ -44,22 +44,30 @@ class Timer {
 public:
 	//Default sets
     Timer();
-	
+
 	/** void finalize ( )
 	 * 
 	 * @brief Get rid of the fps texture.
 	 */
 	void finalize();
+
+	/** void startTimer ( )
+	 * 
+	 * @brief call this method above the main loop(while, for, do while) to start using this object.
+	 * this method is not required, but can prevent glitch by using elapsedTime value on the first 
+	 * frame of the application.
+	 */
+	void startTimer();
     
     /** void updateFrames ( )
 	* 
-	* @brief Put on the top of the main loop to counter fps limit events.
+	* @brief Put on the top of the main loop to use fps events.
 	*/
     void updateFrames();
     
     /** void updateFramesCount ( )
 	 * 
-	 * @brief Put on the top of the fps limiter statement to count the FPS rate.
+	 * @brief Put on the top of the fps limiter event statement to count the Frame Rate.
 	 */
     void updateFramesCount();
     

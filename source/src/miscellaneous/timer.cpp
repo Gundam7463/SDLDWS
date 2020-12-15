@@ -53,6 +53,9 @@ void Timer::finalize() {
 		m_fpsTexture = nullptr;
 	}
 }
+void Timer::startTimer() {
+	m_prevTime = SDL_GetTicks();
+}
 void Timer::updateFrames() {
     m_currentTime = SDL_GetTicks();
     m_elapsedTime = m_currentTime - m_prevTime;

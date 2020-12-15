@@ -76,6 +76,7 @@ void Application::finalize() {
 void Application::mainLoop() {
     SDL_Event event;
 		
+	m_timer.startTimer();
     while(m_bRunning)
     {   
         m_timer.updateFrames();//update frame on the main loop.
