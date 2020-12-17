@@ -21,6 +21,11 @@ was released i will put some pre-compile platforms links to download here.
 3- Include the source/ folder to the project.
 4- And build with c++11 SDL2 SDL2_image SDL2_ttf.
 
+## Documentation
+
+github-pages(en): [link](https://gundam7463.github.io/sdldws-doc.github.io/)
+
+
 ## Licenses:
 
 The project source code is on the MIT license.
@@ -29,6 +34,6 @@ files: tinyxml2.h and tinyxml2.cpp has your own licenses, please check.
 
 Assets(res folder) License: [link](https://github.com/Gundam7463/SDLDWS/blob/master/res/LICENSE)
 
-Font Assets(res folder) Lincense: [link](https://github.com/Gundam7463/SDLDWS/blob/master/res/font/OFL.txt)
+Font Assets(res folder) License: [link](https://github.com/Gundam7463/SDLDWS/blob/master/res/font/OFL.txt)
 
 
