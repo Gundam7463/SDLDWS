@@ -1,6 +1,7 @@
 # SDLDWS
 
 SDLDWS is a framework for game programming development, write in C++ using SDL2 and XML.
+(chages will be made)
 
 This projects is not ready but this is the official repository that will be updated 
 frequently. Once this projects is ready it aims to developer and no-developer to create games
@@ -19,7 +20,7 @@ was released i will put some pre-compile platforms links to download here.
 1- Copy the folder res/ and source/ to the folder of your c++ project.
 2- Install the SDL2, SDL2_image, SDL2_ttf development lib's to you environment IDE.
 3- Include the source/ folder to the project.
-4- And build with c++11 SDL2 SDL2_image SDL2_ttf.
+4- And build with c++11 SDL2 SDL2_image SDL2_ttf. 
 
 ## Documentation
 
