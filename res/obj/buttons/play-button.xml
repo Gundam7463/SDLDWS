@@ -7,6 +7,7 @@
   
   <button>
   	<text value="play"/>
+  	<jump value="PlayScreen"/>
   </button>
 </template>
 

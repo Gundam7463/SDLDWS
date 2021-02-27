@@ -213,7 +213,7 @@ SDL_Texture* Graphics::drawTextSolidToTexture(const std::string& fontIndex, cons
 }
 Graphics::Graphics() {
     
-    m_pWindow = SDL_CreateWindow("SDLDWS", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
+    m_pWindow = SDL_CreateWindow("SDLDWS60", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
     m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, SDL_RENDERER_SOFTWARE);
 
     if (!m_pWindow || !m_pRenderer)

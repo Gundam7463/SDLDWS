@@ -27,6 +27,7 @@
 #include "../../include/miscellaneous/application.h"
 #include "../../include/input/input_manager.h"
 
+const float speed = 0.26f;
 
 bool TileLayer::load(tinyxml2::XMLElement* layer, const LevelInfo& levelInfo) {
 	
@@ -51,19 +52,19 @@ void TileLayer::update(int32_t elapsedTime) {
 	
 	if (InputManager::instance().getKeyHold(SDL_SCANCODE_LEFT))
 	{
-		Application::instance().getCamera().moveHorizontal(0.13f * elapsedTime);
+		Application::instance().getCamera().moveHorizontal(speed * elapsedTime);
 	}
 	if (InputManager::instance().getKeyHold(SDL_SCANCODE_RIGHT))
 	{
-		Application::instance().getCamera().moveHorizontal((-0.13f) * elapsedTime);
+		Application::instance().getCamera().moveHorizontal((-speed) * elapsedTime);
 	}
 	if (InputManager::instance().getKeyHold(SDL_SCANCODE_DOWN))
 	{
-		Application::instance().getCamera().moveVertical((-0.13f) * elapsedTime);
+		Application::instance().getCamera().moveVertical((-speed) * elapsedTime);
 	}
 	if (InputManager::instance().getKeyHold(SDL_SCANCODE_UP))
 	{
-		Application::instance().getCamera().moveVertical(0.13f * elapsedTime);
+		Application::instance().getCamera().moveVertical(speed * elapsedTime);
 	}
 }
 void TileLayer::draw(const LevelInfo& levelInfo) {
